@@ -25,7 +25,7 @@
     left: 0; /* Align to left */
 }
 
-#signin {
+#signup {
     position: absolute;
     left: 550px;
     top: 80px;
@@ -33,7 +33,7 @@
     font-family: 'Marcellus', serif;
 }
 
-#sign_in {
+#sign_up {
     background-image: url("sign_in.png"); /* Make sure sign_in.png is correctly referenced */
     background-repeat: no-repeat;
     width: 100%;
@@ -78,7 +78,7 @@
 {
     position: absolute;
     top:300px;
-    left:650px;
+    left:740px;
     font-size: 30px;
     color: black;
     text-align: center;
@@ -87,7 +87,7 @@
 {
     position: absolute;
     top:325px;
-    left:850px;
+    left:800px;
     height: 100px;
     font-size: 30px;
     color: black;
@@ -97,8 +97,8 @@
 #password
 {
     position: absolute;
-    top:400px;
-    left:650px;
+    top:375px;
+    left:660px;
     font-size: 30px;
     color: black;
     text-align: center;
@@ -106,11 +106,30 @@
 #password-box
 {
     position: absolute;
-    top:425px;
-    left:850px;
+    top:400px;
+    left:800px;
     font-size: 30px;
     color: black;
     text-align: center;
+}
+#re_password
+{
+    position: absolute;
+    top:450px;
+    left:535px;
+    font-size: 30px;
+    color: black;
+    text-align: center;
+}
+#re_password-box
+{
+    position: absolute;
+    top:475px;
+    left:800px;
+    font-size: 30px;
+    color: black;
+    text-align: center;
+    z-index: 10;
 }
 #enter
 {
@@ -130,11 +149,11 @@
     font-weight: 600;
     line-height: normal;   
 }
-#signup
+#signingup
 {
     position: absolute;
     top:650px;
-    left:700px;
+    left:740px;
     font-size: 20px;
     color: #000000;
     text-align: center;

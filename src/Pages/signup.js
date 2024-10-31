@@ -1,8 +1,8 @@
 import React from 'react';
-import './signin.css';
+import './signup.css';
 import logo from './logo.png';
 
-function Signin() {
+function Signup() {
     // Function to handle button clicks for Teacher and Student
     const handleRoleClick = (role) => {
         const teacherButton = document.getElementById('teacher-button');
@@ -24,9 +24,10 @@ function Signin() {
         // Retrieve values from input fields
         const srn = document.getElementById('text-box').value;
         const password = document.getElementById('pass-box').value;
+        const re_password = document.getElementById('re_pass-box').value;
 
         // Only proceed if both fields are filled
-        if (srn && password) {
+        if (srn && password && re_password) {
             console.log('Entering...');
             // Add your logic for the Enter button here
         } else {
@@ -38,30 +39,35 @@ function Signin() {
         <div id='bg1'>
             <div id="DUEIT" style={{ backgroundImage: `url(${logo})`, backgroundSize: 'contain', backgroundRepeat: 'no-repeat', height: '100px' }}></div>
             <div id='bg2'>
-                <div id='signin'>SIGN IN</div>
-                <div id='sign_in'></div>
+                <div id='signup'>SIGN UP</div>
+                <div id='sign_up'></div>
                 <div id="hello">
-                    <button id="teacher-button" className="toggle-button" style={{ color: 'white',fontFamily: 'Marcellus',fontSize: '30px' }} onClick={() => handleRoleClick('Teacher')}>Teacher</button>
-                    <button id="student-button" className="toggle-button" style={{ color: 'white',fontFamily: 'Marcellus',fontSize: '30px' }} onClick={() => handleRoleClick('Student')}>Student</button>
+                    <button id="teacher-button" className="toggle-button" style={{ color: 'white', fontFamily: 'Marcellus', fontSize: '30px' }} onClick={() => handleRoleClick('Teacher')}>Teacher</button>
+                    <button id="student-button" className="toggle-button" style={{ color: 'white', fontFamily: 'Marcellus', fontSize: '30px' }} onClick={() => handleRoleClick('Student')}>Student</button>
                 </div>
-                <div id="srn"><p>srn</p></div>
+                <div id="srn"><p>srn:</p></div>
                 <div id="srn-box">
                     <input type="text" id="text-box" placeholder="Enter srn" /></div>
-                <div id="password">
-                    <p>Password</p>
-                </div>
-                <div id="password-box">
+                    <div id="password">
+                    <p>Password:</p>
+                    </div>
+                    <div id="password-box">
                     <input type="password" id="pass-box" placeholder="Enter password" />
-                </div>
+                    </div>
+                    <div id="re_password">
+                    <p>Re-enter Password:</p>
+                    </div>
+                    <div id="re_password-box"><input type="password" id="re_pass-box" placeholder="Re-enter password" /></div>
+
                 <div id="enter">
-                    <button className="toggle-button" onClick={handleEnterClick} style={{ color: 'white',fontSize: '30px' }}>ENTER</button>
+                    <button className="toggle-button" onClick={handleEnterClick} style={{ color: 'white', fontSize: '30px' }}>ENTER</button>
                 </div>
-                <div id='signup'>
-                    <p>Don't have an account? <a href="/signup" style={{ color: '#6BC5D2', textDecoration: 'underline' }}> Signup</a></p>
+                <div id='signingup'>
+                    <p> have an account? <a href="/signup" style={{ color: '#6BC5D2', textDecoration: 'underline' }}> Signin</a></p>
                 </div>
             </div>
         </div>
     );
 }
 
-export default Signin;
+export default Signup;

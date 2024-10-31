@@ -43,18 +43,49 @@
 // export default App;
 // _____________________________________________
 
-import React from 'react';
-import './Pages/signin.css';
-import Signin from './Pages/signin';
+// import React from 'react';
+// import './Pages/signin.css';
+// import Signin from './Pages/signin';
 
-function App() {
-    return (
-        <div className="App">
-            <Signin/>
-        </div>
-    );
-}
+// function App() {
+//     return (
+//         <div className="App">
+//             <Signin/>
+//         </div>
+//     );
+// }
 
-export default App;
+// export default App;
+//---------------------------------------------------
+// import React from 'react';
+// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+// import Landing from './Pages/landing'; // Ensure this matches the actual path and casing
+// import SignIn from './Pages/signin'; // Match the actual path and casing
 
+// function App() {
+//     return (
+//         <Router>
+//             <Routes>
+//                 <Route path="/" element={<Landing />} />
+//                 <Route path="/signin" element={<SignIn />} />
+//             </Routes>
+//         </Router>
+//     );
+// }
 
+// export default App;
+// ------------------------------------------------------------------
+// import React from 'react';
+// import './Pages/signup.css';
+// import Signup from './Pages/signup';
+
+// function App() {
+//     return (
+//         <div className="App">
+//             <Signup/>
+//         </div>
+//     );
+// }
+
+// export default App;
+//--------------------------------------------------------------------

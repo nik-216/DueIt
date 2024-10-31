@@ -8,7 +8,8 @@
     "@testing-library/user-event": "^13.5.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-scripts": "5.0.1",
+    "react-router-dom": "^6.27.0",
+    "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -34,5 +35,34 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "overrides": {
+    "ansi-html": "0.0.9",
+    "braces": "3.0.3",
+    "react-dev-utils": {
+      "browserslist": "4.24.2",
+      "loader-utils": "3.3.1"
+    },
+    "resolve-url-loader": {
+      "loader-utils": "3.3.1",
+      "postcss": "8.4.47"
+    },
+    "lodash.template": "4.5.0",
+    "recursive-readdir": {
+      "minimatch": "10.0.1"
+    },
+    "node-forge": "1.3.1",
+    "node-notifier": "10.0.1",
+    "svgo": {
+      "nth-check": "2.1.1"
+    },
+    "postcss": "8.4.47",
+    "request": "2.88.2",
+    "semver": "7.6.3",
+    "shell-quote": "1.8.1",
+    "tough-cookie": "5.0.0",
+    "webpack-dev-middleware": "7.4.2",
+    "http-proxy-middleware": "3.0.3",
+    "micromatch": "4.0.8"
   }
 }
