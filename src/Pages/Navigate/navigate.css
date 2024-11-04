@@ -1,0 +1,19 @@
+/* navigate.css */
+#navigate-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+#navigate-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+
+.navigate-logo {
+    width: 150px; /* Adjust as needed */
+    height: auto;
+}

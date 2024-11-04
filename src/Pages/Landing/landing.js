@@ -20,7 +20,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './landing.css';
-import logo from './logo.png';
 // import Signin from './signin';
 
 function Landing() {
@@ -32,8 +31,10 @@ function Landing() {
 
     return (
         <div id="background">
-            <div id="dueit" style={{ backgroundImage: `url(${logo})` }}></div>
-            <div id="track" style={{ fontFamily: 'Marcellus' }}>
+            <div id="dueit">
+                <img src="/logo.png" alt="pic" />
+            </div>
+            <div id="track">
                 <b>Track all your assignments</b>
             </div>
             <div id="signin">

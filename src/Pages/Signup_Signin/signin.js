@@ -1,6 +1,5 @@
 import React from 'react';
 import './signin.css';
-import logo from './logo.png';
 
 function Signin() {
     // Function to handle button clicks for Teacher and Student
@@ -28,7 +27,8 @@ function Signin() {
         // Only proceed if both fields are filled
         if (srn && password) {
             console.log('Entering...');
-            // Add your logic for the Enter button here
+            console.log(srn)
+            console.log(password)
         } else {
             alert('Please enter both SRN and Password');
         }
@@ -36,13 +36,17 @@ function Signin() {
 
     return (
         <div id='bg1'>
-            <div id="DUEIT" style={{ backgroundImage: `url(${logo})`, backgroundSize: 'contain', backgroundRepeat: 'no-repeat', height: '100px' }}></div>
+            <div id="DUEIT">
+                <img src="/logo.png" alt="pic" />
+            </div>
             <div id='bg2'>
                 <div id='signin'>SIGN IN</div>
-                <div id='sign_in'></div>
+                <div id='sign_in'>
+                    <img src="/sign_in.png" alt="pic" />
+                </div>
                 <div id="hello">
-                    <button id="teacher-button" className="toggle-button" style={{ color: 'white',fontFamily: 'Marcellus',fontSize: '30px' }} onClick={() => handleRoleClick('Teacher')}>Teacher</button>
-                    <button id="student-button" className="toggle-button" style={{ color: 'white',fontFamily: 'Marcellus',fontSize: '30px' }} onClick={() => handleRoleClick('Student')}>Student</button>
+                    <button id="teacher-button" className="toggle-button" style={{ color: 'white',fontSize: '30px' }} onClick={() => handleRoleClick('Teacher')}>Teacher</button>
+                    <button id="student-button" className="toggle-button" style={{ color: 'white',fontSize: '30px' }} onClick={() => handleRoleClick('Student')}>Student</button>
                 </div>
                 <div id="srn"><p>srn</p></div>
                 <div id="srn-box">
