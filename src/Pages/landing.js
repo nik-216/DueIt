@@ -21,12 +21,13 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './landing.css';
 import logo from './logo.png';
+// import Signin from './signin';
 
 function Landing() {
     const navigate = useNavigate();
 
     const handleSignInClick = () => {
-        navigate('/signin'); // Navigate to the SignIn page
+        navigate('./signin'); // Navigate to the SignIn page
     };
 
     return (
@@ -36,7 +37,7 @@ function Landing() {
                 <b>Track all your assignments</b>
             </div>
             <div id="signin">
-                <button type="button" id="signin-btn" onClick={handleSignInClick}>
+                <button type="button" id="signin-btn-landing" onClick={handleSignInClick}>
                     SIGN IN
                 </button>  
             </div>

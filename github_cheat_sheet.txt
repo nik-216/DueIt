@@ -4,3 +4,6 @@ git pull origin main
 git add .
 git commit -m "change"
 git push origin main
+
+----------FOR NIKS MAC--------------
+kill -9 $(lsof -ti:3000)

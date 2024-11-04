@@ -28,19 +28,25 @@
 
 // ____________________________________________
 
-// import React from 'react';
-// import './Pages/landing.css';
-// import Landing from './Pages/landing';
+import React from 'react';
+import Landing from './Pages/landing';
+import Signin from './Pages/signin';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-// function App() {
-//     return (
-//         <div className="App">
-//             <Landing/>
-//         </div>
-//     );
-// }
+function App() {
+    return (
+        <div className="App">
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Landing />} />
+                    <Route path="/signin" element={<Signin />} />
+                </Routes>
+            </BrowserRouter>
+        </div>
+    );
+}
 
-// export default App;
+export default App;
 // _____________________________________________
 
 // import React from 'react';
