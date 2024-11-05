@@ -5,16 +5,6 @@
     background-color: black;
 }
 
-#bg2 {
-    width: 85%;
-    height: 755px;
-    left: 117px;
-    top: 100px;
-    right: 117px;
-    position: absolute;
-    background-color: #FFFFFF;
-}
-
 #DUEIT {
     width: 100%;
     height: 100px; /* Adjust the height if needed */
@@ -23,6 +13,16 @@
     left: 0; /* Align to left */
     background-repeat: no-repeat;
     background-size: contain;
+}
+
+#bg2 {
+    width: 85%;
+    height: 755px;
+    left: 117px;
+    top: 100px;
+    right: 117px;
+    position: absolute;
+    background-color: #FFFFFF;
 }
 
 #signin {
