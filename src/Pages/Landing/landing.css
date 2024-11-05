@@ -1,14 +1,11 @@
 /* Background styling */
 #background {
     background-color: black;
-    width: 1512;
-    height: 982;
-    position: 'relative';
     width: 100%;
-    top: 0;
+    height: 100%;
+    position: absolute;
     background-size: cover;
     background-position: center;
-    height: 1000px;
 }
 
 /* Dueit logo styling */
@@ -16,7 +13,7 @@
     background-repeat: no-repeat;
     width: 100%;
     position: absolute;
-    top: 125px;
+    top: 80px;
     height: 300px;
     left: 350px;
 }
@@ -24,7 +21,7 @@
 /* Track text styling */
 #track {
     position: absolute;
-    top: 400px;
+    top: 350px;
     left: 525px;
     font-size: 30px;
     color: #FFFFFF;
@@ -34,9 +31,7 @@
 
 /* Signin button wrapper styling */
 #signin {
-    position: absolute;
-    left: 600px;
-    top: 500px;
+    position: relative;
 }
 
 /* Signin button styling */
@@ -47,6 +42,9 @@
     font-size: 25px;
     line-height: normal;
     color: black;
+    position: relative;
+    left: 100px;
+    top: 350px;
 }
 
 body {

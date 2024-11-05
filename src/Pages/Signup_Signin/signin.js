@@ -18,7 +18,7 @@ function Signin() {
         }
 
         try {
-            const response = await axios.post('http://localhost:5000/api/login', {
+            const response = await axios.post('http://localhost:5000/api/signin', {
                 srn,
                 password,
                 role: role === 1 ? 'Teacher' : 'Student'
