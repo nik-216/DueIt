@@ -30,8 +30,8 @@
 }
 
 /* Signin button wrapper styling */
-#signin {
-    position: relative;
+#sign-in {
+    position: absolute;
 }
 
 /* Signin button styling */
@@ -43,8 +43,8 @@
     line-height: normal;
     color: black;
     position: relative;
-    left: 100px;
-    top: 350px;
+    left: 625px;
+    top: 450px;
 }
 
 body {

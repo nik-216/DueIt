@@ -1,40 +1,36 @@
 #bg1 {
     width: 100%;
-    height: 982px;
+    height: 700px;
     position: relative;
     background-color: black;
 }
 
+#DUEIT {
+    position: absolute; /* Change to absolute positioning */
+    top: 0; /* Align to top */
+    left: 0; /* Align to left */
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
 #bg2 {
-    width: 85%;
-    height: 755px;
-    left: 117px;
-    top: 100px;
-    right: 117px;
+    width: 90%;
+    height: 530px;
+    left: 80px;
+    top: 80px;
+    right: 100px;
     position: absolute;
     background-color: #FFFFFF;
 }
 
-#DUEIT {
-    background-image: url("logo.png");
-    background-repeat: no-repeat;
-    width: 100%;
-    height: 100px; /* Adjust the height if needed */
-    position: relative; /* Change to relative for normal flow positioning */
-    top: 0; /* Align to top */
-    left: 0; /* Align to left */
-}
-
-#signup {
+#signup1 {
     position: absolute;
-    left: 550px;
-    top: 80px;
+    left: 500px;
+    top: 20px;
     font-size: 50px;
-    font-family: 'Marcellus', serif;
 }
 
 #sign_up {
-    background-image: url("sign_in.png"); /* Make sure sign_in.png is correctly referenced */
     background-repeat: no-repeat;
     width: 100%;
     position: absolute;
@@ -49,7 +45,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 1px;
     margin-top: 50px;
     position: relative; /* Ensures the buttons are positioned relative to this container */
     z-index: 10; /* Ensure this container is above others */
@@ -57,9 +53,9 @@
 }
 
 .toggle-button {
-    margin-top: 150px;
-    width: 300px;
-    height: 70px;
+    margin-top: 80px;
+    width: 200px;
+    height: 50px;
     background-color: #000000;
     border: 2px solid #FFFFFF;
     padding: 2px 2px;
@@ -71,62 +67,62 @@
 
 
 .toggle-button:hover {
-    margin-top: 150px;
+    margin-top: 80px;
     border-color: #000000;
 }
-#srn
+#id1
 {
     position: absolute;
-    top:300px;
-    left:740px;
-    font-size: 30px;
-    color: black;
-    text-align: center;
-}
-#srn-box
-{
-    position: absolute;
-    top:325px;
+    top:210px;
     left:800px;
-    height: 100px;
-    font-size: 30px;
-    color: black;
-    text-align: center;
-    font-weight: 100;
-}
-#password
-{
-    position: absolute;
-    top:375px;
-    left:660px;
-    font-size: 30px;
+    font-size: 20px;
     color: black;
     text-align: center;
 }
-#password-box
+#id-box1
 {
     position: absolute;
-    top:400px;
-    left:800px;
-    font-size: 30px;
+    top:225px;
+    left:900px;
+    height: 40px;
+    width: 100px;
+    font-size: 20px;
+    color: black;
+    text-align: center;
+}
+#password1
+{
+    position: absolute;
+    top:250px;
+    left:775px;
+    font-size: 20px;
+    color: black;
+    text-align: center;
+}
+#password-box1
+{
+    position: absolute;
+    top:265px;
+    left:900px;
+    font-size: 20px;
     color: black;
     text-align: center;
 }
 #re_password
 {
     position: absolute;
-    top:450px;
-    left:535px;
-    font-size: 30px;
+    top:290px;
+    left:725px;
+    font-size: 20px;
     color: black;
     text-align: center;
 }
 #re_password-box
 {
     position: absolute;
-    top:475px;
-    left:800px;
-    font-size: 30px;
+    top:305px;
+    left:900px;
+    font-size: 20px;
     color: black;
     text-align: center;
     z-index: 10;
@@ -134,27 +130,27 @@
 #enter
 {
     position: absolute;
-    left: 700px;
-    top: 450px;
+    left: 800px;
+    top: 300px;
     color: #FFFFFF;
 }
 
 #submit-btn
 {
     background-color: #FFFFFF;
-    width: 170px;
-    height: 40px;
+    width: 70px;
+    height: 30px;
     font-size: 25px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;   
 }
-#signingup
+#signup2
 {
     position: absolute;
-    top:650px;
-    left:740px;
-    font-size: 20px;
+    top:430px;
+    left:780px;
+    font-size: 17px;
     color: #000000;
     text-align: center;
 }
