@@ -18,15 +18,19 @@ function Signin() {
         }
 
         try {
-            const response = await axios.post('http://localhost:5000/api/signin', {
+            const response = await axios.post('http://localhost:8000/api/signin', {
                 srn,
                 password,
                 role: role === 1 ? 'Teacher' : 'Student'
             });
             console.log('Login successful, Token:', response.data.token);
         } catch (error) {
-            alert('Login failed: ' + error.response.data.message);
+            const errorMessage = error.response && error.response.data && error.response.data.message 
+                ? error.response.data.message 
+                : 'An error occurred. Please try again.';
+            alert('Login failed: ' + errorMessage);
         }
+        
     };
 
     return (

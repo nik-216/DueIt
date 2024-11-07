@@ -88,8 +88,8 @@ app.post('/api/signup', async (req, res) => {
         const hashedPassword = await hashPassword(password);
         
         db.query(
-            `INSERT INTO ${tableName} (${idColumn}, password, role) VALUES (?, ?, ?)`,
-            [id, hashedPassword, role],
+            `INSERT INTO ${tableName} (${idColumn}, password) VALUES (?, ?)`,
+            [id, hashedPassword],
             (err, results) => {
                 if (err) return res.status(500).json({ message: 'Failed to register user' });
                 res.json({ message: 'User registered successfully' });
@@ -99,6 +99,12 @@ app.post('/api/signup', async (req, res) => {
         res.status(500).json({ message: 'Error hashing password' });
     }
 });
+
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ message: 'An internal server error occurred' });
+});
+
 
 // Start Server
 app.listen(PORT, () => {
