@@ -7,7 +7,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
-const PORT = 8000;
+const PORT = process.env.PORT;
 
 // Middleware
 app.use(cors());
@@ -31,10 +31,10 @@ app.post('/api/signin', async (req, res) => {
     const { id, password, role } = req.body;
     
     // Choose the table and ID column based on role
-    const tableName = role === 0 ? 'students' : 'teachers';
-    const idColumn = role === 0 ? 'student_id' : 'teacher_id';
+    const tableName = role === 'Student' ? 'students' : 'teachers';
+    const idColumn = role === 'Student' ? 'student_id' : 'teacher_id';
 
-    // Fetch user by ID and Role
+    // Fetch user by ID
     db.query(
         `SELECT * FROM ${tableName} WHERE ${idColumn} = ?`,
         [id],
@@ -76,35 +76,40 @@ const hashPassword = async (password) => {
     }
 };
 
-// Example usage in a registration route
 app.post('/api/signup', async (req, res) => {
     const { id, password, role } = req.body;
 
     // Choose the table and ID column based on role
-    const tableName = role === 0 ? 'students' : 'teachers';
-    const idColumn = role === 0 ? 'student_id' : 'teacher_id';
+    const tableName = role === 'Student' ? 'students' : 'teachers';
+    const idColumn = role === 'Student' ? 'student_id' : 'teacher_id';
 
     try {
         const hashedPassword = await hashPassword(password);
-        
+
+        // Insert new user into the database
         db.query(
             `INSERT INTO ${tableName} (${idColumn}, password) VALUES (?, ?)`,
             [id, hashedPassword],
             (err, results) => {
-                if (err) return res.status(500).json({ message: 'Failed to register user' });
+                if (err) {
+                    console.error('Database Query Error:', err.message); // Log error message
+                    return res.status(500).json({ message: 'Failed to register user', error: err.message });
+                }
                 res.json({ message: 'User registered successfully' });
             }
         );
     } catch (error) {
-        res.status(500).json({ message: 'Error hashing password' });
+        console.error('Error in Registration Process:', error.message); // Log the error in the try block
+        res.status(500).json({ message: 'Error processing registration', error: error.message });
     }
 });
 
+
+// Error handling middleware
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).json({ message: 'An internal server error occurred' });
 });
-
 
 // Start Server
 app.listen(PORT, () => {

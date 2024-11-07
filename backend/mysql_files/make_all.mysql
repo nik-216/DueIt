@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS students(
     year int,
     semester int,
     department varchar(10),
-    password varchar(20)
+    password varchar(255)
 );
 
 CREATE TABLE IF NOT EXISTS teachers(
@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS teachers(
     name varchar(30),
     title varchar(10),
     department varchar(10),
-    password varchar(20)
+    password varchar(255)
 );
 
 CREATE TABLE IF NOT EXISTS courses(

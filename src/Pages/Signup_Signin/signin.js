@@ -1,11 +1,13 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './signin.css';
 
 function Signin() {
     const [role, setRole] = useState(0); // 0 for Student, 1 for Teacher
     const [id, setId] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     const handleRoleClick = (selectedRole) => {
         setRole(selectedRole === 'Teacher' ? 1 : 0);
@@ -13,17 +15,18 @@ function Signin() {
 
     const handleEnterClick = async () => {
         if (!id || !password) {
-            alert('Please enter both SRN and Password');
+            alert('Please enter both ID and Password');
             return;
         }
 
         try {
             const response = await axios.post('http://localhost:8000/api/signin', {
-                srn,
+                id,
                 password,
                 role: role === 1 ? 'Teacher' : 'Student'
             });
             console.log('Login successful, Token:', response.data.token);
+            navigate('/home');
         } catch (error) {
             const errorMessage = error.response && error.response.data && error.response.data.message 
                 ? error.response.data.message 
