@@ -4,6 +4,7 @@ import Landing from './Pages/Landing/landing';
 import Signin from './Pages/Signup_Signin/signin';
 import Navigate from './Pages/Navigate/Navigate';
 import Home from './Pages/Home/home'; // Path to Home.js
+import Signup from './Pages/Signup_Signin/signup';
 
 function App() {
     return (
@@ -14,6 +15,7 @@ function App() {
                     <Route path="/signin" element={<Signin />} />
                     <Route path="/navigate" element={<Navigate />} /> 
                     <Route path="/home" element={<Home />} />
+                    <Route path="/signup" element={<Signup />} />
                 </Routes>
             </BrowserRouter>
         </div>
