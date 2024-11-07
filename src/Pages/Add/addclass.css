@@ -1,0 +1,121 @@
+#bg1 {
+    width: 100%;
+    height: 700px;
+    position: relative;
+    background-color: black;
+}
+
+#DUEIT {
+    position: absolute; /* Change to absolute positioning */
+    top: 0; /* Align to top */
+    left: 0; /* Align to left */
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+#bg2 {
+    width: 90%;
+    height: 530px;
+    left: 80px;
+    top: 80px;
+    right: 100px;
+    position: absolute;
+    background-color: #FFFFFF;
+}
+#text2
+{
+    color: #3C0F52;
+    font-family: 'Marcellus', serif;
+    text-align: center;
+    font-size: 44px;
+}
+#student-text
+{
+    color: #6BC5D2;
+    font-family: 'Marcellus', serif;
+    text-align: center;
+    font-size: 30px; 
+}
+#name-box
+{
+    width: 230px;
+    height: 350px;
+    position: fixed;
+    background-color: black;
+    left: 1175px;
+    top: 90px;
+}
+.name-button {
+    font-family: Marcellus;
+    width: 175px;
+    margin: 8px 0;
+    color: #FFFFFF;
+    background-color: #000000;
+    padding: 2px 20px;
+    font-size: 20px;
+    border: #FFFFFF;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+#add-student-button
+{
+    font-family: Marcellus;
+    width: 215px;
+    margin: 8px 0;
+    color: #FFFFFF;
+    background-color: #000000;
+    padding: 12px 20px;
+    font-size: 25px;
+    border: #FFFFFF;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 360px;
+    left: 1100px;
+}
+#enter1
+{
+    position: absolute;
+    left: 1100px;
+    top: 450px;
+    color: #000000;
+}
+.toggle-button {
+    margin-top: 20px;
+    width: 200px;
+    height: 50px;
+    background-color: #000000;
+    border: 2px solid #FFFFFF;
+    padding: 2px 2px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+    z-index: 20; /* Ensure buttons are clickable */
+}
+.form-label {
+    margin-bottom: 15px;
+    color: #000000;
+    font-size: 16px;
+    left: 100px;
+    position: absolute;
+    font-family: Marcellus;
+}
+
+input[type="text"] {
+    width: 30%;
+    padding: 10px;
+    font-size: 13px;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 3px;
+    outline: none;
+    transition: border-color 0.3s;
+    margin-left: 0px;
+    position: relative;
+    font-family: Marcellus;
+}
