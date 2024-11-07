@@ -4,7 +4,7 @@ import './signin.css';
 
 function Signin() {
     const [role, setRole] = useState(0); // 0 for Student, 1 for Teacher
-    const [srn, setSrn] = useState('');
+    const [id, setId] = useState('');
     const [password, setPassword] = useState('');
 
     const handleRoleClick = (selectedRole) => {
@@ -12,7 +12,7 @@ function Signin() {
     };
 
     const handleEnterClick = async () => {
-        if (!srn || !password) {
+        if (!id || !password) {
             alert('Please enter both SRN and Password');
             return;
         }
@@ -61,9 +61,9 @@ function Signin() {
                         Student
                     </button>
                 </div>
-                <div id="srn"><p>SRN</p></div>
-                <div id="srn-box">
-                    <input type="text" value={srn} onChange={(e) => setSrn(e.target.value)} placeholder="Enter SRN" />
+                <div id="id"><p>ID</p></div>
+                <div id="id-box">
+                    <input type="text" value={id} onChange={(e) => setId(e.target.value)} placeholder="Enter ID" />
                 </div>
                 <div id="password">
                     <p>Password</p>
