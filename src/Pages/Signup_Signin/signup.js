@@ -13,35 +13,37 @@ function Signup() {
         setRole(selectedRole === 'Teacher' ? 1 : 0);
     };
 
-    const handleEnterClick = async () => {
-    if (!id || !password) {
-        alert('Please enter both ID and Password');
+    const [confirmPassword, setConfirmPassword] = useState('');
+
+const handleEnterClick = async () => {
+    if (!id || !password || !confirmPassword) {
+        alert('Please enter ID, Password, and confirm your password');
+        return;
+    }
+
+    if (password !== confirmPassword) {
+        alert('Passwords do not match');
         return;
     }
 
     try {
-        const response = await axios.post('http://localhost:5000/api/signin', {
+        const response = await axios.post('http://localhost:8000/api/signup', {
             id,
             password,
             role: role === 1 ? 'Teacher' : 'Student'
         });
 
-        // Log the full response to inspect its structure
-        console.log('Response:', response);
-
-        // Ensure response.data is defined before accessing
-        if (response.data && response.data.token) {
-            console.log('Login successful, Token:', response.data.token);
-            navigate('/home'); // Use absolute path here
+        if (response.data && response.data.message === 'User registered successfully') {
+            alert('Signup successful! You can now log in.');
+            navigate('/signin');
         } else {
-            alert('Login failed: Invalid response from server.');
+            alert('Signup failed: ' + response.data.message);
         }
     } catch (error) {
         const errorMessage = error.response?.data?.message || 'An unexpected error occurred';
-        alert('Login failed: ' + errorMessage);
+        alert('Signup failed: ' + errorMessage);
     }
 };
-
 
     return (
         <div id='bg1'>
@@ -82,10 +84,14 @@ function Signup() {
                     <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter password" />
                 </div>
                 <div id="re_password">
-                    <p>re-enter password</p>
+                    <p>Re-enter Password</p>
                 </div>
                 <div id="re_password-box">
-                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="re-enter password" />
+                    <input
+                        type="password"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        placeholder="Re-enter password"/>
                 </div>
                 <div id="enter">
                     <button className="toggle-button" onClick={handleEnterClick} style={{ color: 'white', fontSize: '20px' }}>
