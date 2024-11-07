@@ -7,7 +7,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
-const PORT = 5000;
+const PORT = 8000;
 
 // Middleware
 app.use(cors());
@@ -28,17 +28,21 @@ db.connect(err => {
 
 // Route to handle login
 app.post('/api/signin', async (req, res) => {
-    const { srn, password, role } = req.body;
+    const { id, password, role } = req.body;
+    
+    // Choose the table and ID column based on role
+    const tableName = role === 0 ? 'students' : 'teachers';
+    const idColumn = role === 0 ? 'student_id' : 'teacher_id';
 
-    // Fetch user by SRN and Role
+    // Fetch user by ID and Role
     db.query(
-        'SELECT * FROM users WHERE srn = ? AND role = ?',
-        [srn, role],
+        `SELECT * FROM ${tableName} WHERE ${idColumn} = ?`,
+        [id],
         async (err, results) => {
-            if (err) throw err;
+            if (err) return res.status(500).json({ message: 'Database query failed' });
 
             if (results.length === 0) {
-                return res.status(401).json({ message: 'Invalid SRN or role' });
+                return res.status(401).json({ message: 'Invalid ID or role' });
             }
 
             const user = results[0];
@@ -51,7 +55,7 @@ app.post('/api/signin', async (req, res) => {
                 }
 
                 // Generate JWT
-                const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET, {
+                const token = jwt.sign({ id: user[idColumn], role: role }, process.env.JWT_SECRET, {
                     expiresIn: '1h',
                 });
 
@@ -62,7 +66,6 @@ app.post('/api/signin', async (req, res) => {
         }
     );
 });
-
 
 // Hash a password using Argon2
 const hashPassword = async (password) => {
@@ -75,14 +78,18 @@ const hashPassword = async (password) => {
 
 // Example usage in a registration route
 app.post('/api/signup', async (req, res) => {
-    const { srn, password, role } = req.body;
+    const { id, password, role } = req.body;
+
+    // Choose the table and ID column based on role
+    const tableName = role === 0 ? 'students' : 'teachers';
+    const idColumn = role === 0 ? 'student_id' : 'teacher_id';
 
     try {
         const hashedPassword = await hashPassword(password);
         
         db.query(
-            'INSERT INTO users (srn, password, role) VALUES (?, ?, ?)',
-            [srn, hashedPassword, role],
+            `INSERT INTO ${tableName} (${idColumn}, password, role) VALUES (?, ?, ?)`,
+            [id, hashedPassword, role],
             (err, results) => {
                 if (err) return res.status(500).json({ message: 'Failed to register user' });
                 res.json({ message: 'User registered successfully' });

@@ -1,4 +1,5 @@
 -----------CHANGES------------------
+-- remove pwd first
 git checkout main
 git pull origin main
 git add .

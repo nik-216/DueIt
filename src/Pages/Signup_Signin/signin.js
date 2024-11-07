@@ -1,20 +1,19 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import './signin.css';
 
 function Signin() {
     const [role, setRole] = useState(0); // 0 for Student, 1 for Teacher
     const [id, setId] = useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate();
+
     const handleRoleClick = (selectedRole) => {
         setRole(selectedRole === 'Teacher' ? 1 : 0);
     };
 
     const handleEnterClick = async () => {
         if (!id || !password) {
-            alert('Please enter both ID and Password');
+            alert('Please enter both SRN and Password');
             return;
         }
 
@@ -25,17 +24,15 @@ function Signin() {
                 role: role === 1 ? 'Teacher' : 'Student'
             });
             console.log('Login successful, Token:', response.data.token);
-            navigate('/home');
         } catch (error) {
-            const errorMessage = error.response?.data?.message || 'An unexpected error occurred';
-            alert('Login failed: ' + errorMessage);
+            alert('Login failed: ' + error.response.data.message);
         }
     };
 
     return (
         <div id='bg1'>
             <div id="DUEIT">
-                <img src="/logo.png" alt="pic"style={{ width: '200px', height: 'auto' }}/>
+                <img src="/logo.png" alt="pic" />
             </div>
             <div id='bg2'>
                 <div id='signin'>SIGN IN</div>
@@ -46,7 +43,7 @@ function Signin() {
                     <button
                         id="teacher-button"
                         className="toggle-button"
-                        style={{ color: role === 1 ? '#6BC5D2' : 'white', fontSize: '25px' }}
+                        style={{ color: role === 1 ? '#6BC5D2' : 'white', fontSize: '30px' }}
                         onClick={() => handleRoleClick('Teacher')}
                     >
                         Teacher
@@ -54,7 +51,7 @@ function Signin() {
                     <button
                         id="student-button"
                         className="toggle-button"
-                        style={{ color: role === 0 ? '#6BC5D2' : 'white', fontSize: '25px' }}
+                        style={{ color: role === 0 ? '#6BC5D2' : 'white', fontSize: '30px' }}
                         onClick={() => handleRoleClick('Student')}
                     >
                         Student
@@ -71,7 +68,7 @@ function Signin() {
                     <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter password" />
                 </div>
                 <div id="enter">
-                    <button className="toggle-button" onClick={handleEnterClick} style={{ color: 'white', fontSize: '20px' }}>
+                    <button className="toggle-button" onClick={handleEnterClick} style={{ color: 'white', fontSize: '30px' }}>
                         ENTER
                     </button>
                 </div>
