@@ -25,7 +25,13 @@ function Signin() {
                 password,
                 role: role === 1 ? 'Teacher' : 'Student'
             });
-            console.log('Login successful, Token:', response.data.token);
+
+            // Store the token in localStorage
+            const token = response.data.token;
+            localStorage.setItem('token', token);
+            console.log(localStorage.getItem('token'));
+
+            console.log('Login successful, Token:', token);
             navigate('/home');
         } catch (error) {
             const errorMessage = error.response && error.response.data && error.response.data.message 
@@ -33,7 +39,6 @@ function Signin() {
                 : 'An error occurred. Please try again.';
             alert('Login failed: ' + errorMessage);
         }
-        
     };
 
     return (

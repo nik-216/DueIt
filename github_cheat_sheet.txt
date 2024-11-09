@@ -8,3 +8,8 @@ git push origin main
 
 ----------FOR NIKS MAC--------------
 kill -9 $(lsof -ti:3000)
+
+----------FOR STARTING AND STOPPING MYSQL----------
+mysql.server start
+mysql.server stop
+mysql.server restart
