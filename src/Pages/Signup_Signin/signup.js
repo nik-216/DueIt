@@ -7,16 +7,19 @@ function Signup() {
     const [role, setRole] = useState(0); // 0 for Student, 1 for Teacher
     const [id, setId] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [name, setName] = useState('');
+    const [department, setDepartment] = useState('');
+    const [semester, setSemester] = useState('');
+    const [title, setTitle] = useState('');
     const navigate = useNavigate();
 
     const handleRoleClick = (selectedRole) => {
         setRole(selectedRole === 'Teacher' ? 1 : 0);
     };
 
-    const [confirmPassword, setConfirmPassword] = useState('');
-
 const handleEnterClick = async () => {
-    if (!id || !password || !confirmPassword) {
+    if (!id || !password || !confirmPassword || !name || !department) {
         alert('Please enter ID, Password, and confirm your password');
         return;
     }
@@ -52,9 +55,6 @@ const handleEnterClick = async () => {
             </div>
             <div id='bg2'>
                 <div id='signup1'>SIGN UP</div>
-                <div id='sign_up'>
-                    <img src="/sign_in.png" alt="pic" />
-                </div>
                 <div id="hello">
                     <button
                         id="teacher-button"
@@ -73,6 +73,39 @@ const handleEnterClick = async () => {
                         Student
                     </button>
                 </div>
+
+
+                <div id="name"><p>Name</p></div>
+                <div id="name-box">
+                    <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Enter Name" />
+                </div>
+
+                <div id="department"><p>Department</p></div>
+                <div id="department-box">
+                    <input type="text" value={department} onChange={(e) => setDepartment(e.target.value)} placeholder="Enter Department" />
+                </div>
+                {role === 0 && (
+                    <div id="semester">
+                        <p>Semester</p>
+                    </div>
+                )}
+                {role === 0 && (
+                    <div id="semester-box">
+                    <input type="text" value={semester} onChange={(e) => setSemester(e.target.value)} placeholder="Enter semester"/>
+                    </div>
+                )}
+                {role === 1 && (
+                    <div id="title"><p>Title</p>
+                </div>
+                )}
+                {role === 1 && (
+                    <div id="title-box">
+                        <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Enter title"/>
+                    </div>
+                )}
+
+
+
                 <div id="id1"><p>ID</p></div>
                 <div id="id-box1">
                     <input type="text" value={id} onChange={(e) => setId(e.target.value)} placeholder="Enter ID" />

@@ -26,7 +26,11 @@ function Signin() {
                 role: role === 1 ? 'Teacher' : 'Student'
             });
             console.log('Login successful, Token:', response.data.token);
-            navigate('/home');
+            if (role === 1) {
+                navigate('/teacherslanding'); // Teacher's landing page
+            } else {
+                navigate('/studentslanding'); // Student's landing page
+            }
         } catch (error) {
             const errorMessage = error.response && error.response.data && error.response.data.message 
                 ? error.response.data.message 

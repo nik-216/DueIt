@@ -1,9 +1,9 @@
 // Home.js
 // import axios from 'axios';
 import React from 'react';
-import './home.css';
+import './homestudent.css';
 
-function Home() {
+function Homestudent() {
     return (
         <div id='bg1'>
             <div id="DUEIT">
@@ -26,4 +26,4 @@ function Home() {
     );
 }
 
-export default Home;
+export default Homestudent;

@@ -12,6 +12,7 @@ function Addclass() {
     const [isa1, setIsa1] = useState('');
     const [isa2, setIsa2] = useState('');
     const [esa, setEsa] = useState('');
+    const navigate = useNavigate();
 
     const handleStudentClick = (className) => {
         setSelectedStudent(className);
@@ -22,6 +23,7 @@ function Addclass() {
             alert('Please enter all values before proceeding.');
         } else {
             alert('Enter Works');
+            navigate('./hometeacher.js')
         }
     };
     
