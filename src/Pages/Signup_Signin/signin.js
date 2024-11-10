@@ -37,7 +37,6 @@ function Signin() {
                 : 'An error occurred. Please try again.';
             alert('Login failed: ' + errorMessage);
         }
-        
     };
 
     return (
