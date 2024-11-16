@@ -2,8 +2,47 @@
 // import axios from 'axios';
 import React from 'react';
 import './homestudent.css';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function Homestudent() {
+    const [name, setName] = useState("User");
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            const token = localStorage.getItem('token'); // Retrieve token from localStorage
+    
+            if (!token) {
+                console.error('No token found in localStorage');
+                return;
+            }
+    
+            try {
+                console.log("Sending token:", `Bearer ${token}`); // Log the token being sent
+                const response = await axios.get('http://localhost:8000/api/home', {
+                    headers: {
+                        Authorization: `Bearer ${token}`, // Attach token in Authorization header
+                    },
+                });
+
+                if (response && response.data && response.data.name) {
+                    setName(response.data.name); // Set the name if available in response
+                } else {
+                    console.warn("No name property in response:", response.data);
+                }
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+                if (error.response) {
+                    console.error('Server responded with:', error.response.status, error.response.data);
+                } else {
+                    console.error('Error Message:', error.message);
+                }
+            }
+        };
+    
+        fetchUserData(); // Call the function to fetch user data
+    }, []);
+
     return (
         <div id='bg1'>
             <div id="DUEIT">
