@@ -36,7 +36,7 @@
     text-align: center;
     font-size: 30px; 
 }
-#name-box
+#name-box3
 {
     width: 230px;
     height: 350px;
@@ -77,14 +77,14 @@
     top: 360px;
     left: 1100px;
 }
-#enter1
+#enter3
 {
     position: absolute;
     left: 1100px;
     top: 450px;
     color: #000000;
 }
-.toggle-button {
+.toggle-button1 {
     margin-top: 20px;
     width: 200px;
     height: 50px;
@@ -96,26 +96,37 @@
     transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
     z-index: 20; /* Ensure buttons are clickable */
 }
-.form-label {
-    margin-bottom: 15px;
-    color: #000000;
-    font-size: 16px;
-    left: 100px;
-    position: absolute;
-    font-family: Marcellus;
+.form-container1 {
+    display: flex;
+    justify-content: space-between;
+    gap: 0px; /* Space between columns */
 }
 
-input[type="text"] {
-    width: 30%;
+.form-column1 {
+    width: 50%; /* Each column takes up almost half of the space */
+}
+
+.form-item1 {
+    margin-bottom: 15px;
+    position: relative;
+}
+.form-label1 {
+    margin-bottom: 5px;
+    margin-left: 50px;
+    color: #000000;
+    font-size: 16px;
+    font-family: Marcellus;
+    margin-right: 15px;
+}
+
+.input-field1 {
+    margin-top: 5px;
+    width: 40%;
     padding: 10px;
     font-size: 13px;
     color: #333;
     border: 1px solid #ccc;
     border-radius: 5px;
-    margin-top: 3px;
     outline: none;
     transition: border-color 0.3s;
-    margin-left: 0px;
-    position: relative;
-    font-family: Marcellus;
 }

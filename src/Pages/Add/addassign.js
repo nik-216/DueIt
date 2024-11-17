@@ -1,6 +1,7 @@
 // Home.js
 import React, { useState } from 'react';
 import './addassign.css';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 function Addassign() {
     const getCurrentDate = () => {
@@ -16,11 +17,16 @@ function Addassign() {
     const [releasedate, setReleasedate] = useState(getCurrentDate());
     const [duedate, setDuedate] = useState('');
     const [maxmarks, setMaxmarks] = useState('');
+    const navigate = useNavigate();
+
+    const handleAddStudentClick = () => {
+        navigate('/addstudent');
+    };
     const handleStudentClick = (className) => {
         setSelectedStudent(className);
     };
-
-    const handleEnterClick = () => {
+    
+    const handleEnter3Click = () => {
         if (!title || !description || !releasedate || !duedate || !maxmarks ) {
             alert('Please enter all values before proceeding.');
         } else {
@@ -41,7 +47,7 @@ function Addassign() {
                     <div className="form-all-fields">
                         <div className="form-item">
                             <label htmlFor="title" className="form-label">Title:</label>
-                            <input id="title" className="input-field" type="text" placeholder="Enter title" value={title} onChange={(e) => setTitle(e.target.value)} />
+                            <input id="title1" className="input-field" type="text" placeholder="Enter title" value={title} onChange={(e) => setTitle(e.target.value)} />
                         </div>
                         <div className="form-item">
                             <label htmlFor="description" className="form-label">Description:</label>
@@ -72,11 +78,11 @@ function Addassign() {
                             Name 3
                         </div>
                     </div>
-                    <button id="add-student-button" onClick={() => handleStudentClick('+ Student')}>
+                    <button id="add-student-button" onClick={() => handleAddStudentClick('+ Student')}>
                         + Student
                     </button>
-                    <div id="enter1">
-                        <button className="toggle-button" onClick={handleEnterClick} style={{ color: '#6BC5D2', fontSize: '20px' }}>
+                    <div id="enter3">
+                        <button className="toggle-button3" onClick={handleEnter3Click} style={{ color: '#6BC5D2', fontSize: '20px' }}>
                             ENTER
                         </button>
                     </div>

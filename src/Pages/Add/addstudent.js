@@ -1,8 +1,7 @@
-// Home.js
 import React, { useState } from 'react';
-import './home.css';
+import './addstudent.css';
 
-function Home() {
+function Addstudent() {
     
     const [selectedStudent, setSelectedStudent] = useState('');
     const [id, setId] = useState('');
@@ -29,12 +28,12 @@ function Home() {
                     <p>Add Student</p>
                 </div>
                     <div className="form-all">
-                        <div className="form-item">
-                            <label htmlFor="id" className="form-label">id:</label>
-                            <input id="id" className="input-field" type="text" placeholder="Enter id" value={id} onChange={(e) => setId(e.target.value)} />
+                        <div className="form-item2">
+                            <label htmlFor="id2" className="form-label2">id:</label>
+                            <input id="id2" className="input-field2" type="text" placeholder="Enter id" value={id} onChange={(e) => setId(e.target.value)} />
                         </div>
                     </div>
-                    <div id="name-box">
+                    <div id="name-box3">
                         <div id="student-text">Students</div>
                         <div id="name1-button" className="name-button" onClick={() => handleStudentClick('Name 1')}>
                             Name 1
@@ -46,11 +45,8 @@ function Home() {
                             Name 3
                         </div>
                     </div>
-                    <button id="add-student-button" onClick={() => handleStudentClick('+ Student')}>
-                        + Student
-                    </button>
                     <div id="enter1">
-                        <button className="toggle-button" onClick={handleEnterClick} style={{ color: '#6BC5D2', fontSize: '20px' }}>
+                        <button className="toggle-button3" onClick={handleEnterClick} style={{ color: '#6BC5D2', fontSize: '20px' }}>
                             ENTER
                         </button>
                     </div>
@@ -59,4 +55,4 @@ function Home() {
     );
 }
 
-export default Home;
+export default Addstudent;

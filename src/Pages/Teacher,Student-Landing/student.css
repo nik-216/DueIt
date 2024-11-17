@@ -1,0 +1,152 @@
+#bg1 {
+    width: 100%;
+    height: 700px;
+    position: relative;
+    background-color: black;
+}
+
+#DUEIT {
+    position: absolute; /* Change to absolute positioning */
+    top: 0; /* Align to top */
+    left: 0; /* Align to left */
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+#bg2 {
+    width: 90%;
+    height: 530px;
+    left: 80px;
+    top: 80px;
+    right: 100px;
+    position: absolute;
+    background-color: #FFFFFF;
+}
+#text1
+{
+    color: #3C0F52;
+    font-family: 'Marcellus', serif;
+    text-align: center;
+    font-size: 44px;
+}
+#classroom-box
+{
+    width: 250px;
+    height: 450px;
+    position: absolute;
+    background-color: black;
+    left: 50px;
+    top: 40px;
+}
+#classroom-text
+{
+    font-family: Marcellus;
+    color: #6BC5D2;
+    top:30px;
+    left: 30px;
+    font-size: 40px;
+    position: absolute;
+}
+#classroom2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+}
+
+.class-button {
+    font-family: Marcellus;
+    width: 250px;
+    margin: 8px 0;
+    color: #FFFFFF;
+    background-color: #000000;
+    padding: 12px 20px;
+    font-size: 25px;
+    border: #FFFFFF;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+.class-button:focus,
+.class-button:hover {
+    color: #DCC5F3;
+    transform: translateY(-2px);
+    border: 2px solid #FFFFFF; /* White border on focus/active */
+    outline: none; /* Removes the default outline for focus */
+}
+
+.class-button:active {
+    color: #DCC5F3;
+    transform: translateY(1px);
+    border: 2px solid #FFFFFF; /* White border on focus/active */
+    outline: none; /* Removes the default outline for focus */
+}
+#isa-box
+{
+    width: 230px;
+    height: 150px;
+    position: absolute;
+    background-color: black;
+    left: 1120px;
+    top: 10px;
+}
+.exams
+{
+    font-family: Marcellus;
+    width: 230px;
+    font-size: 30px;
+    color: #6BC5D2;
+    padding: 4px 20px;
+}
+#name-box1
+{
+    width: 230px;
+    height: 350px;
+    position: fixed;
+    background-color: black;
+    left: 1200px;
+    top: 250px;
+}
+.name-button {
+    font-family: Marcellus;
+    width: 175px;
+    margin: 8px 0;
+    color: #FFFFFF;
+    background-color: #000000;
+    padding: 2px 20px;
+    font-size: 20px;
+    border: #FFFFFF;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+/* Container styling */
+.table-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/* Table styling */
+.assignment-table {
+    border-collapse: collapse;
+    width: 80%;
+    max-width: 600px;
+    text-align: left;
+    font-family: 'Marcellus', serif; /* Ensure Marcellus font is imported */
+}
+
+.assignment-table th, .assignment-table td {
+    border: 1px solid #000000; /* Dark purple border */
+    padding: 10px;
+    font-size: 16px;
+}
+
+/* Header styling */
+.assignment-table th {
+    font-weight: bold;
+    color: #000000;
+}

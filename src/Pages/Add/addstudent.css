@@ -36,7 +36,7 @@
     text-align: center;
     font-size: 30px; 
 }
-#name-box
+#name-box3
 {
     width: 230px;
     height: 350px;
@@ -59,24 +59,6 @@
     transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
-#add-student-button
-{
-    font-family: Marcellus;
-    width: 215px;
-    margin: 8px 0;
-    color: #FFFFFF;
-    background-color: #000000;
-    padding: 12px 20px;
-    font-size: 25px;
-    border: #FFFFFF;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    position: absolute;
-    top: 360px;
-    left: 1100px;
-}
 #enter1
 {
     position: absolute;
@@ -84,7 +66,7 @@
     top: 450px;
     color: #000000;
 }
-.toggle-button {
+.toggle-button3 {
     margin-top: 20px;
     width: 200px;
     height: 50px;
@@ -96,17 +78,16 @@
     transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
     z-index: 20; /* Ensure buttons are clickable */
 }
-.form-label {
+.form-label2 {
     margin-bottom: 15px;
     color: #000000;
     font-size: 16px;
-    left: 300px;
-    position: absolute;
+    margin-left: 150px;
     font-family: Marcellus;
 }
 
-input[type="text"] {
-    width: 30%;
+.input-field2 {
+    width: 50%;
     padding: 15px;
     font-size: 13px;
     color: #333;
@@ -115,7 +96,7 @@ input[type="text"] {
     margin-top: 3px;
     outline: none;
     transition: border-color 0.3s;
-    margin-left: 0px;
     position: relative;
     font-family: Marcellus;
+    left: 30px;
 }

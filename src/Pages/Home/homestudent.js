@@ -1,12 +1,12 @@
-// Home.js
-// import axios from 'axios';
 import React from 'react';
 import './homestudent.css';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function Homestudent() {
     const [name, setName] = useState("User");
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -42,6 +42,9 @@ function Homestudent() {
     
         fetchUserData(); // Call the function to fetch user data
     }, []);
+    const handleClass1ButtonClick = () => {
+        navigate('/student'); 
+    };
 
     return (
         <div id='bg1'>
@@ -55,12 +58,11 @@ function Homestudent() {
                 <div id='classroom1'>
                     <div id='classroom-text'>Classroom</div>
                     <div id="classroom2">
-                        <button id="class1-button" className="class-button">Class 1</button>
-                        <button id="class2-button" className="class-button">Class 2</button>
-                        <button id="class3-button" className="class-button">Class 3</button>
-                        <button id="class4-button" className="class-button">Class 4</button>
+                        <button id="class1-button" className="class-button" onClick={handleClass1ButtonClick}>Class 1</button>
+                        <button id="class2-button" className="class-button" onClick={handleClass1ButtonClick}>Class 2</button>
+                        <button id="class3-button" className="class-button" onClick={handleClass1ButtonClick}>Class 3</button>
+                        <button id="class4-button" className="class-button" onClick={handleClass1ButtonClick}>Class 4</button>
                     </div>
-                    <button id="add-classroom-button" className="class-button">+ Classroom</button>
                 </div>
             </div>
         </div>

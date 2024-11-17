@@ -1,12 +1,12 @@
-// Home.js
-// import axios from 'axios';
 import React from 'react';
 import './hometeacher.css';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function Hometeacher() {
     const [name, setName] = useState("User");
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -42,6 +42,12 @@ function Hometeacher() {
     
         fetchUserData(); // Call the function to fetch user data
     }, []);
+    const handleClassButtonClick = () => {
+        navigate('/teachers');
+    };
+    const handleAddClassroomClick = () => {
+        navigate('/teachers'); 
+    };
 
     return (
         <div id='bg1'>
@@ -55,12 +61,12 @@ function Hometeacher() {
                 <div id='classroom1'>
                 <div id='classroom-text'>Classroom</div>
                 <div id="classroom2">
-                    <button id="class1-button" className="class-button">Class 1</button>
-                    <button id="class2-button" className="class-button">Class 2</button>
-                    <button id="class3-button" className="class-button">Class 3</button>
-                    <button id="class4-button" className="class-button">Class 4</button>
+                    <button id="class1-button" className="class-button" onClick={handleClassButtonClick}>Class 1</button>
+                    <button id="class2-button" className="class-button" onClick={handleClassButtonClick}>Class 2</button>
+                    <button id="class3-button" className="class-button" onClick={handleClassButtonClick}>Class 3</button>
+                    <button id="class4-button" className="class-button" onClick={handleClassButtonClick}>Class 4</button>
                 </div>
-                <button id="add-classroom-button" className="class-button">+ Classroom</button>
+                <button id="add-classroom-button" className="class-button" onClick={handleAddClassroomClick}>+ Classroom</button>
             </div>
             </div>
         </div>
