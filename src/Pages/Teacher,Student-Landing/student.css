@@ -22,14 +22,14 @@
     position: absolute;
     background-color: #FFFFFF;
 }
-#text1
+#text5
 {
     color: #3C0F52;
     font-family: 'Marcellus', serif;
     text-align: center;
     font-size: 44px;
 }
-#classroom-box
+#classroom-box5
 {
     width: 250px;
     height: 450px;
@@ -38,7 +38,7 @@
     left: 50px;
     top: 40px;
 }
-#classroom-text
+#classroom-text5
 {
     font-family: Marcellus;
     color: #6BC5D2;
@@ -47,14 +47,14 @@
     font-size: 40px;
     position: absolute;
 }
-#classroom2 {
+#classroom5 {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 100px;
 }
 
-.class-button {
+.class-button5 {
     font-family: Marcellus;
     width: 250px;
     margin: 8px 0;
@@ -68,21 +68,21 @@
     transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
-.class-button:focus,
-.class-button:hover {
+.class-button5:focus,
+.class-button5:hover {
     color: #DCC5F3;
     transform: translateY(-2px);
     border: 2px solid #FFFFFF; /* White border on focus/active */
     outline: none; /* Removes the default outline for focus */
 }
 
-.class-button:active {
+.class-button5:active {
     color: #DCC5F3;
     transform: translateY(1px);
     border: 2px solid #FFFFFF; /* White border on focus/active */
     outline: none; /* Removes the default outline for focus */
 }
-#isa-box
+#isa-box5
 {
     width: 230px;
     height: 150px;
@@ -91,7 +91,7 @@
     left: 1120px;
     top: 10px;
 }
-.exams
+.exams5
 {
     font-family: Marcellus;
     width: 230px;
@@ -99,7 +99,7 @@
     color: #6BC5D2;
     padding: 4px 20px;
 }
-#name-box1
+#name-box5
 {
     width: 230px;
     height: 350px;
@@ -108,7 +108,7 @@
     left: 1200px;
     top: 250px;
 }
-.name-button {
+.name-button5 {
     font-family: Marcellus;
     width: 175px;
     margin: 8px 0;
@@ -123,7 +123,7 @@
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 /* Container styling */
-.table-container {
+.table-container5 {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -131,7 +131,7 @@
 }
 
 /* Table styling */
-.assignment-table {
+.assignment-table5 {
     border-collapse: collapse;
     width: 80%;
     max-width: 600px;
@@ -139,14 +139,14 @@
     font-family: 'Marcellus', serif; /* Ensure Marcellus font is imported */
 }
 
-.assignment-table th, .assignment-table td {
+.assignment-table5 th, .assignment-table5 td {
     border: 1px solid #000000; /* Dark purple border */
     padding: 10px;
     font-size: 16px;
 }
 
 /* Header styling */
-.assignment-table th {
+.assignment-table5 th {
     font-weight: bold;
     color: #000000;
 }

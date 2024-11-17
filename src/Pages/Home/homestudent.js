@@ -42,7 +42,7 @@ function Homestudent() {
     
         fetchUserData(); // Call the function to fetch user data
     }, []);
-    const handleClass1ButtonClick = () => {
+    const handleClass5ButtonClick = () => {
         navigate('/student'); 
     };
 
@@ -52,16 +52,16 @@ function Homestudent() {
                 <img src="/logo.png" alt="pic" style={{ width: '200px', height: 'auto' }} />
             </div>
             <div id='bg2'>
-                <div id='text'>
+                <div id='text5'>
                     <p>Hi<br />Welcome Back<br />{name}!</p>
                 </div>
-                <div id='classroom1'>
-                    <div id='classroom-text'>Classroom</div>
-                    <div id="classroom2">
-                        <button id="class1-button" className="class-button" onClick={handleClass1ButtonClick}>Class 1</button>
-                        <button id="class2-button" className="class-button" onClick={handleClass1ButtonClick}>Class 2</button>
-                        <button id="class3-button" className="class-button" onClick={handleClass1ButtonClick}>Class 3</button>
-                        <button id="class4-button" className="class-button" onClick={handleClass1ButtonClick}>Class 4</button>
+                <div id='classroom5'>
+                    <div id='classroom-text5'>Classroom</div>
+                    <div id="classroom55">
+                        <button id="class1-button" className="class-button5" onClick={handleClass5ButtonClick}>Class 1</button>
+                        <button id="class2-button" className="class-button5" onClick={handleClass5ButtonClick}>Class 2</button>
+                        <button id="class3-button" className="class-button5" onClick={handleClass5ButtonClick}>Class 3</button>
+                        <button id="class4-button" className="class-button5" onClick={handleClass5ButtonClick}>Class 4</button>
                     </div>
                 </div>
             </div>

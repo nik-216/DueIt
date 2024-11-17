@@ -1,7 +1,7 @@
 // Home.js
 import React, { useState } from 'react';
 import './addassign.css';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Addassign() {
     const getCurrentDate = () => {
@@ -12,7 +12,7 @@ function Addassign() {
         return `${year}-${month}-${day}`;
     };
     const [selectedStudent, setSelectedStudent] = useState('');
-    const [title, setTitle] = useState('');
+    const [title7, setTitle7] = useState('');
     const [description, setDescription] = useState('');
     const [releasedate, setReleasedate] = useState(getCurrentDate());
     const [duedate, setDuedate] = useState('');
@@ -26,8 +26,8 @@ function Addassign() {
         setSelectedStudent(className);
     };
     
-    const handleEnter3Click = () => {
-        if (!title || !description || !releasedate || !duedate || !maxmarks ) {
+    const handleEnter7Click = () => {
+        if (!title7 || !description || !releasedate || !duedate || !maxmarks ) {
             alert('Please enter all values before proceeding.');
         } else {
             alert('Enter Works');
@@ -41,48 +41,48 @@ function Addassign() {
                 <img src="/logo.png" alt="pic" style={{ width: '200px', height: 'auto' }} />
             </div>
             <div id="bg2">
-                <div id="text2">
+                <div id="text7">
                     <p>Add Assignment</p>
                 </div>
-                    <div className="form-all-fields">
-                        <div className="form-item">
-                            <label htmlFor="title" className="form-label">Title:</label>
-                            <input id="title1" className="input-field" type="text" placeholder="Enter title" value={title} onChange={(e) => setTitle(e.target.value)} />
+                    <div className="form-all-fields7">
+                        <div className="form-item7">
+                            <label htmlFor="title7" className="form-label7">Title:</label>
+                            <input id="title7" className="input-field7" type="text" placeholder="Enter title" value={title7} onChange={(e) => setTitle7(e.target.value)} />
                         </div>
-                        <div className="form-item">
-                            <label htmlFor="description" className="form-label">Description:</label>
-                            <input id="description"  className="input-field" rows="4" type="text" placeholder="Enter description" value={description} onChange={(e) => setDescription(e.target.value)} style={{ height: '100px'}} />
+                        <div className="form-item7">
+                            <label htmlFor="description" className="form-label7">Description:</label>
+                            <input id="description"  className="input-field7" rows="4" type="text" placeholder="Enter description" value={description} onChange={(e) => setDescription(e.target.value)} style={{ height: '100px'}} />
                         </div>
-                        <div className="form-item">
-                            <label htmlFor="releasedate" className="form-label">Release Date:</label>
-                            <input id="releasedate"  className="input-field" type="text" value={releasedate} onChange={(e) => setReleasedate(e.target.value)} />
+                        <div className="form-item7">
+                            <label htmlFor="releasedate" className="form-label7">Release Date:</label>
+                            <input id="releasedate"  className="input-field7" type="text" value={releasedate} onChange={(e) => setReleasedate(e.target.value)} />
                         </div>
-                        <div className="form-item">
-                            <label htmlFor="duedate" className="form-label">Due Date:</label>
-                            <input id="duedate"  className="input-field" type="text" placeholder="Enter Due Date" value={duedate} onChange={(e) => setDuedate(e.target.value)} />
+                        <div className="form-item7">
+                            <label htmlFor="duedate" className="form-label7">Due Date:</label>
+                            <input id="duedate"  className="input-field7" type="text" placeholder="Enter Due Date" value={duedate} onChange={(e) => setDuedate(e.target.value)} />
                         </div>
-                        <div className="form-item">
-                            <label htmlFor="maxmarks" className="form-label">Max marks:</label>
-                            <input id="maxmarks" className="input-field" type="text" placeholder="Enter Max marks" value={maxmarks} onChange={(e) => setMaxmarks(e.target.value)}/>
+                        <div className="form-item7">
+                            <label htmlFor="maxmarks" className="form-label7">Max marks:</label>
+                            <input id="maxmarks" className="input-field7" type="text" placeholder="Enter Max marks" value={maxmarks} onChange={(e) => setMaxmarks(e.target.value)}/>
                         </div>
                     </div>
-                    <div id="name-box">
-                        <div id="student-text">Students</div>
-                        <div id="name1-button" className="name-button" onClick={() => handleStudentClick('Name 1')}>
+                    <div id="name-box7">
+                        <div id="student-text7">Students</div>
+                        <div id="name1-button" className="name-button7" onClick={() => handleStudentClick('Name 1')}>
                             Name 1
                         </div>
-                        <div id="name2-button" className="name-button" onClick={() => handleStudentClick('Name 2')}>
+                        <div id="name2-button" className="name-button7" onClick={() => handleStudentClick('Name 2')}>
                             Name 2
                         </div>
-                        <div id="name3-button" className="name-button" onClick={() => handleStudentClick('Name 3')}>
+                        <div id="name3-button" className="name-button7" onClick={() => handleStudentClick('Name 3')}>
                             Name 3
                         </div>
                     </div>
-                    <button id="add-student-button" onClick={() => handleAddStudentClick('+ Student')}>
+                    <button id="add-student-button7" onClick={() => handleAddStudentClick('+ Student')}>
                         + Student
                     </button>
-                    <div id="enter3">
-                        <button className="toggle-button3" onClick={handleEnter3Click} style={{ color: '#6BC5D2', fontSize: '20px' }}>
+                    <div id="enter7">
+                        <button className="toggle-button7" onClick={handleEnter7Click} style={{ color: '#6BC5D2', fontSize: '20px' }}>
                             ENTER
                         </button>
                     </div>

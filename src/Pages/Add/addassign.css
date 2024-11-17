@@ -22,21 +22,21 @@
     position: absolute;
     background-color: #FFFFFF;
 }
-#text2
+#text7
 {
     color: #3C0F52;
     font-family: 'Marcellus', serif;
     text-align: center;
     font-size: 44px;
 }
-#student-text
+#student-text7
 {
     color: #6BC5D2;
     font-family: 'Marcellus', serif;
     text-align: center;
     font-size: 30px; 
 }
-#name-box
+#name-box7
 {
     width: 230px;
     height: 350px;
@@ -45,7 +45,7 @@
     left: 1175px;
     top: 90px;
 }
-.name-button {
+.name-button7 {
     font-family: Marcellus;
     width: 175px;
     margin: 8px 0;
@@ -59,7 +59,7 @@
     transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
-#add-student-button
+#add-student-button7
 {
     font-family: Marcellus;
     width: 215px;
@@ -77,14 +77,14 @@
     top: 360px;
     left: 1100px;
 }
-#enter1
+#enter7
 {
     position: absolute;
     left: 1100px;
     top: 450px;
     color: #000000;
 }
-.toggle-button {
+.toggle-button7 {
     margin-top: 20px;
     width: 200px;
     height: 50px;
@@ -96,7 +96,7 @@
     transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
     z-index: 20; /* Ensure buttons are clickable */
 }
-.form-label {
+.form-label7 {
     margin-bottom: 15px;
     color: #000000;
     font-size: 16px;
@@ -120,7 +120,7 @@ input[type="text"] {
     font-family: Marcellus;
 }
 
-.form-item {
+.form-item7 {
     margin-bottom: 10px;
     position: relative;
     margin-left: 50px;

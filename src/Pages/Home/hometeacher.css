@@ -22,14 +22,14 @@
     position: absolute;
     background-color: #FFFFFF;
 }
-#text
+#text4
 {
     color: #3C0F52;
     font-family: Marcellus;
     text-align: center;
     font-size: 70px;
 }
-#classroom1
+#classroom4
 {
     width: 250px;
     height: 450px;
@@ -38,7 +38,7 @@
     left: 50px;
     top: 40px;
 }
-#classroom-text
+#classroom-text4
 {
     font-family: Marcellus;
     color: #6BC5D2;
@@ -47,14 +47,14 @@
     font-size: 40px;
     position: absolute;
 }
-#classroom2 {
+#classroom44 {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 100px;
 }
 
-.class-button {
+.class-button4 {
     width: 250px;
     margin: 8px 0;
     color: #FFFFFF;
@@ -67,15 +67,15 @@
     transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
-.class-button:focus,
-.class-button:hover {
+.class-button4:focus,
+.class-button4:hover {
     color: #DCC5F3;
     transform: translateY(-2px);
     border: 2px solid #FFFFFF; /* White border on focus/active */
     outline: none; /* Removes the default outline for focus */
 }
 
-.class-button:active {
+.class-button4:active {
     color: #DCC5F3;
     transform: translateY(1px);
     border: 2px solid #FFFFFF; /* White border on focus/active */

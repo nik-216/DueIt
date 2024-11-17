@@ -42,10 +42,10 @@ function Hometeacher() {
     
         fetchUserData(); // Call the function to fetch user data
     }, []);
-    const handleClassButtonClick = () => {
+    const handleClassButton4Click = () => {
         navigate('/teachers');
     };
-    const handleAddClassroomClick = () => {
+    const handleAddClassroom4Click = () => {
         navigate('/teachers'); 
     };
 
@@ -55,18 +55,18 @@ function Hometeacher() {
                 <img src="/logo.png" alt="pic" style={{ width: '200px', height: 'auto' }}/>
             </div>
             <div id='bg2'>
-                <div id='text'>
+                <div id='text4'>
                     <p>Hi<br />Welcome Back<br />{name}!</p>
                 </div>
-                <div id='classroom1'>
-                <div id='classroom-text'>Classroom</div>
-                <div id="classroom2">
-                    <button id="class1-button" className="class-button" onClick={handleClassButtonClick}>Class 1</button>
-                    <button id="class2-button" className="class-button" onClick={handleClassButtonClick}>Class 2</button>
-                    <button id="class3-button" className="class-button" onClick={handleClassButtonClick}>Class 3</button>
-                    <button id="class4-button" className="class-button" onClick={handleClassButtonClick}>Class 4</button>
+                <div id='classroom4'>
+                <div id='classroom-text4'>Classroom</div>
+                <div id="classroom44">
+                    <button id="class1-button" className="class-button4" onClick={handleClassButton4Click}>Class 1</button>
+                    <button id="class2-button" className="class-button4" onClick={handleClassButton4Click}>Class 2</button>
+                    <button id="class3-button" className="class-button4" onClick={handleClassButton4Click}>Class 3</button>
+                    <button id="class4-button" className="class-button4" onClick={handleClassButton4Click}>Class 4</button>
                 </div>
-                <button id="add-classroom-button" className="class-button" onClick={handleAddClassroomClick}>+ Classroom</button>
+                <button id="add-classroom-button4" className="class-button4" onClick={handleAddClassroom4Click}>+ Classroom</button>
             </div>
             </div>
         </div>

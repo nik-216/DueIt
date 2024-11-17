@@ -18,7 +18,7 @@ function Signup() {
         setRole(selectedRole === 'Teacher' ? 1 : 0);
     };
 
-const handleEnterClick = async () => {
+    const handleEnterClick = async () => {
     if (!id || !password || !confirmPassword || !name || !department) {
         alert('Please enter ID, Password, and confirm your password');
         return;
