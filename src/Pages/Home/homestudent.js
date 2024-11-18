@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function Homestudent() {
-    const [name, setName] = useState("User");
+    const [name5, setName5] = useState("User");
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -26,7 +26,7 @@ function Homestudent() {
                 });
 
                 if (response && response.data && response.data.name) {
-                    setName(response.data.name); // Set the name if available in response
+                    setName5(response.data.name); // Set the name if available in response
                 } else {
                     console.warn("No name property in response:", response.data);
                 }
@@ -53,7 +53,7 @@ function Homestudent() {
             </div>
             <div id='bg2'>
                 <div id='text5'>
-                    <p>Hi<br />Welcome Back<br />{name}!</p>
+                    <p>Hi<br />Welcome Back<br />{name5}!</p>
                 </div>
                 <div id='classroom5'>
                     <div id='classroom-text5'>Classroom</div>
