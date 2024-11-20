@@ -12,6 +12,13 @@
     background-repeat: no-repeat;
     background-size: contain;
 }
+#LOGOUT {
+    position: absolute; /* Change to absolute positioning */
+    top: 20px; /* Align to top */
+    left: 1450px; /* Align to left */
+    background-repeat: no-repeat;
+    background-size: contain;
+}
 
 #bg2 {
     width: 90%;

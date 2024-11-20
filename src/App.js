@@ -11,6 +11,8 @@ import Student from './Pages/Teacher,Student-Landing/student';
 import Addclass from './Pages/Add/addclass';
 import Addassign from './Pages/Add/addassign';
 import Addstudent from './Pages/Add/addstudent';
+import Viewassign from './Pages/Add/viewassign';
+import Updateassign from './Pages/Update/Updateassign';
 
 
 function App() {
@@ -18,7 +20,6 @@ function App() {
         <div className="App">
             <BrowserRouter>
                 <Routes>
-                    {/* <Route path="/" element={<Hometeacher />} /> */}
                     <Route path="/" element={<Landing />} />
                     <Route path="/signin" element={<Signin />} />
                     <Route path="/navigate" element={<Navigate />} /> 
@@ -30,6 +31,8 @@ function App() {
                     <Route path="/addclass" element={<Addclass />} />
                     <Route path="/addassign" element={<Addassign />} />
                     <Route path="/addstudent" element={<Addstudent />} />
+                    <Route path="/viewassign" element={<Viewassign />} />
+                    <Route path="/Updateassign" element={<Updateassign />} />
                 </Routes>
             </BrowserRouter>
         </div>

@@ -1,0 +1,135 @@
+#bg1 {
+    width: 100%;
+    height: 700px;
+    position: relative;
+    background-color: black;
+}
+
+#DUEIT11 {
+    position: absolute; /* Change to absolute positioning */
+    top: 0; /* Align to top */
+    left: 0; /* Align to left */
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+#bg2 {
+    width: 90%;
+    height: 530px;
+    left: 80px;
+    top: 80px;
+    right: 100px;
+    position: absolute;
+    background-color: #FFFFFF;
+}
+#text11
+{
+    color: #3C0F52;
+    font-family: 'Marcellus', serif;
+    text-align: center;
+    font-size: 25px;
+}
+.table-container11 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+    margin-left: 70px;
+    /* display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px; */
+}
+
+/* Table styling */
+.assignment-table11 {
+    border-collapse: collapse;
+    width: 90%;
+    max-width: 800px;
+    text-align: left;
+    font-family: 'Marcellus', serif; /* Ensure Marcellus font is imported */
+}
+
+.assignment-table11 th, .assignment-table11 td {
+    border: 1px solid #000000; 
+    padding: 10px;
+    font-size: 16px;
+}
+
+/* Header styling */
+.assignment-table11 th {
+    font-weight: bold;
+    color: #000000;
+}
+#enter11
+{
+    position: absolute;
+    left: 1150px;
+    top: 450px;
+    color: #000000;
+}
+.toggle-button11 {
+    margin-top: 20px;
+    width: 200px;
+    height: 50px;
+    background-color: #000000;
+    border: 2px solid #FFFFFF;
+    padding: 2px 2px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+    z-index: 20; /* Ensure buttons are clickable */
+}
+#classroom-box11
+{
+    width: 250px;
+    height: 450px;
+    position: absolute;
+    background-color: black;
+    left: 50px;
+    top: 40px;
+}
+#classroom-text11
+{
+    font-family: Marcellus;
+    color: #6BC5D2;
+    top:30px;
+    left: 30px;
+    font-size: 40px;
+    position: absolute;
+}
+#classroom11 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+}
+
+.class-button11 {
+    font-family: Marcellus;
+    width: 250px;
+    margin: 8px 0;
+    color: #FFFFFF;
+    background-color: #000000;
+    padding: 4px 8px;
+    font-size: 25px;
+    border: #FFFFFF;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+.class-button11:focus,
+.class-button11:hover {
+    color: #DCC5F3;
+    transform: translateY(-2px);
+    border: 2px solid #FFFFFF; /* White border on focus/active */
+    outline: none; /* Removes the default outline for focus */
+}
+
+.class-button11:active {
+    color: #DCC5F3;
+    transform: translateY(1px);
+    border: 2px solid #FFFFFF; /* White border on focus/active */
+    outline: none; /* Removes the default outline for focus */
+}

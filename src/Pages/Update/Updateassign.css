@@ -1,0 +1,86 @@
+/* General page background */
+#bg1 {
+    width: 100%;
+    height: 700px;
+    position: relative;
+    background-color: black;
+}
+
+/* Logo container */
+#DUEIT12 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+/* White background for the main content */
+#bg2 {
+    width: 90%;
+    height: 530px;
+    left: 80px;
+    top: 80px;
+    right: 100px;
+    position: absolute;
+    background-color: #FFFFFF;
+}
+
+/* Header text */
+#text12 {
+    color: #3C0F52;
+    font-family: 'Marcellus', serif;
+    text-align: center;
+    font-size: 25px;
+}
+
+/* Table container */
+.table-container12 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+}
+
+/* Table styling */
+.assignment-table12 {
+    border-collapse: collapse;
+    width: 90%;
+    max-width: 800px;
+    text-align: left;
+    font-family: 'Marcellus', serif;
+}
+
+.assignment-table12 th,
+.assignment-table12 td {
+    border: 1px solid #000000;
+    padding: 10px;
+    font-size: 16px;
+}
+
+/* Table header styling */
+.assignment-table12 th {
+    font-weight: bold;
+    color: #000000;
+}
+
+/* Button alignment */
+#enter12 {
+    position: absolute;
+    left: 1150px;
+    top: 450px;
+    color: #000000;
+}
+
+.toggle-button12 {
+    margin-top: 20px;
+    width: 200px;
+    height: 50px;
+    background-color: #000000;
+    border: 2px solid #FFFFFF;
+    padding: 2px 2px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+    z-index: 20;
+}

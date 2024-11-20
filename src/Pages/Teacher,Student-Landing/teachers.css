@@ -12,6 +12,13 @@
     background-repeat: no-repeat;
     background-size: contain;
 }
+#LOGOUT {
+    position: absolute; /* Change to absolute positioning */
+    top: 20px; /* Align to top */
+    left: 1450px; /* Align to left */
+    background-repeat: no-repeat;
+    background-size: contain;
+}
 
 #bg2 {
     width: 90%;
@@ -60,7 +67,7 @@
     margin: 8px 0;
     color: #FFFFFF;
     background-color: #000000;
-    padding: 12px 20px;
+    padding: 4px 8px;
     font-size: 25px;
     border: #FFFFFF;
     border-radius: 10px;

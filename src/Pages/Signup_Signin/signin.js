@@ -27,9 +27,9 @@ function Signin() {
             });
             console.log('Login successful, Token:', response.data.token);
             if (role === 1) {
-                navigate('/teacherslanding'); // Teacher's landing page
+                navigate('/hometeacher'); // Teacher's landing page
             } else {
-                navigate('/studentslanding'); // Student's landing page
+                navigate('/homestudent'); // Student's landing page
             }
         } catch (error) {
             const errorMessage = error.response && error.response.data && error.response.data.message 
