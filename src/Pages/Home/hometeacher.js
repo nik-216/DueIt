@@ -6,10 +6,11 @@ import axios from 'axios';
 
 function Hometeacher() {
     const [name4, setName4] = useState("User");
+    const [classes, setClasses] = useState([]); // State to store the teacher's classes
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchUserData = async () => {
+        const fetchTeacherData = async () => {
             const token = localStorage.getItem('token'); // Retrieve token from localStorage
     
             if (!token) {
@@ -19,19 +20,20 @@ function Hometeacher() {
     
             try {
                 console.log("Sending token:", `Bearer ${token}`); // Log the token being sent
-                const response = await axios.get('http://localhost:8000/api/home', {
+                const response = await axios.get('http://localhost:8000/api/home_teacher', {
                     headers: {
                         Authorization: `Bearer ${token}`, // Attach token in Authorization header
                     },
                 });
 
-                if (response && response.data && response.data.name) {
-                    setName4(response.data.name); // Set the name if available in response
+                if (response && response.data) {
+                    setName4(response.data.name || "User"); // Set the name
+                    setClasses(response.data.classes || []); // Set the classes
                 } else {
-                    console.warn("No name property in response:", response.data);
+                    console.warn("Unexpected response format:", response.data);
                 }
             } catch (error) {
-                console.error('Error fetching user data:', error);
+                console.error('Error fetching teacher data:', error);
                 if (error.response) {
                     console.error('Server responded with:', error.response.status, error.response.data);
                 } else {
@@ -40,34 +42,48 @@ function Hometeacher() {
             }
         };
     
-        fetchUserData(); // Call the function to fetch user data
+        fetchTeacherData(); // Call the function to fetch teacher data
     }, []);
-    const handleClassButton4Click = () => {
+
+    const handleClassClick = (classId) => {
         navigate('/teachers');
     };
-    const handleAddClassroom4Click = () => {
-        navigate('/teachers'); 
+
+    const handleAddClassroomClick = () => {
+        navigate('/addclass');
     };
 
     return (
         <div id='bg1'>
             <div id="DUEIT">
-                <img src="/logo.png" alt="pic" style={{ width: '200px', height: 'auto' }}/>
+                <img src="/logo.png" alt="pic" style={{ width: '200px', height: 'auto' }} />
             </div>
             <div id='bg2'>
                 <div id='text4'>
                     <p>Hi<br />Welcome Back<br />{name4}!</p>
                 </div>
                 <div id='classroom4'>
-                <div id='classroom-text4'>Classroom</div>
-                <div id="classroom44">
-                    <button id="class1-button" className="class-button4" onClick={handleClassButton4Click}>Class 1</button>
-                    <button id="class2-button" className="class-button4" onClick={handleClassButton4Click}>Class 2</button>
-                    <button id="class3-button" className="class-button4" onClick={handleClassButton4Click}>Class 3</button>
-                    <button id="class4-button" className="class-button4" onClick={handleClassButton4Click}>Class 4</button>
+                    <div id='classroom-text4'>Classroom</div>
+                    <div id="classroom44">
+                        {classes.length > 0 ? (
+                            classes.map((classItem) => (
+                                <button 
+                                    key={classItem.class_ID}
+                                    id={`class-${classItem.class_ID}-button`}
+                                    className="class-button4"
+                                    onClick={() => handleClassClick(classItem.class_ID)}
+                                >
+                                    {classItem.course_ID} - {classItem.classroom}
+                                </button>
+                            ))
+                        ) : (
+                            <p>No classes assigned</p>
+                        )}
+                    </div>
+                    <button id="add-classroom-button4" className="class-button4" onClick={handleAddClassroomClick}>
+                        + Classroom
+                    </button>
                 </div>
-                <button id="add-classroom-button4" className="class-button4" onClick={handleAddClassroom4Click}>+ Classroom</button>
-            </div>
             </div>
         </div>
     );

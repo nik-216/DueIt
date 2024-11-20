@@ -25,7 +25,9 @@ function Signin() {
                 password,
                 role: role === 1 ? 'Teacher' : 'Student'
             });
+            localStorage.setItem('token', response.data.token);
             console.log('Login successful, Token:', response.data.token);
+            // console.log(localStorage.getItem('token'));
             if (role === 1) {
                 navigate('/hometeacher'); // Teacher's landing page
             } else {

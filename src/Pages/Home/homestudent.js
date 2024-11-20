@@ -6,44 +6,38 @@ import axios from 'axios';
 
 function Homestudent() {
     const [name5, setName5] = useState("User");
+    const [classes, setClasses] = useState([]); // State to store classes
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchUserData = async () => {
-            const token = localStorage.getItem('token'); // Retrieve token from localStorage
-    
+            const token = localStorage.getItem('token');
+
             if (!token) {
                 console.error('No token found in localStorage');
                 return;
             }
-    
+
             try {
-                console.log("Sending token:", `Bearer ${token}`); // Log the token being sent
-                const response = await axios.get('http://localhost:8000/api/home', {
+                const response = await axios.get('http://localhost:8000/api/home_student', {
                     headers: {
-                        Authorization: `Bearer ${token}`, // Attach token in Authorization header
+                        Authorization: `Bearer ${token}`,
                     },
                 });
 
-                if (response && response.data && response.data.name) {
-                    setName5(response.data.name); // Set the name if available in response
-                } else {
-                    console.warn("No name property in response:", response.data);
+                if (response && response.data) {
+                    setName5(response.data.name || "User");
+                    setClasses(response.data.classes || []);
                 }
             } catch (error) {
                 console.error('Error fetching user data:', error);
-                if (error.response) {
-                    console.error('Server responded with:', error.response.status, error.response.data);
-                } else {
-                    console.error('Error Message:', error.message);
-                }
             }
         };
-    
-        fetchUserData(); // Call the function to fetch user data
+        fetchUserData();
     }, []);
-    const handleClass5ButtonClick = () => {
-        navigate('/student'); 
+
+    const handleClassClick = (classID) => {
+        navigate(`/student`); // Navigate to a class-specific route
     };
 
     return (
@@ -56,12 +50,22 @@ function Homestudent() {
                     <p>Hi<br />Welcome Back<br />{name5}!</p>
                 </div>
                 <div id='classroom5'>
-                    <div id='classroom-text5'>Classroom</div>
+                    <div id='classroom-text5'>Your Classes</div>
                     <div id="classroom55">
-                        <button id="class1-button" className="class-button5" onClick={handleClass5ButtonClick}>Class 1</button>
-                        <button id="class2-button" className="class-button5" onClick={handleClass5ButtonClick}>Class 2</button>
-                        <button id="class3-button" className="class-button5" onClick={handleClass5ButtonClick}>Class 3</button>
-                        <button id="class4-button" className="class-button5" onClick={handleClass5ButtonClick}>Class 4</button>
+                        {classes.length > 0 ? (
+                            classes.map((cls) => (
+                                <button
+                                    key={cls.class_ID}
+                                    id={`class-${cls.class_ID}`}
+                                    className="class-button5"
+                                    onClick={() => handleClassClick(cls.class_ID)}
+                                >
+                                    {cls.course_name}
+                                </button>
+                            ))
+                        ) : (
+                            <p>No classes assigned yet.</p>
+                        )}
                     </div>
                 </div>
             </div>

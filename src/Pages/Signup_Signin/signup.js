@@ -33,7 +33,11 @@ function Signup() {
         const response = await axios.post('http://localhost:8000/api/signup', {
             id,
             password,
-            role: role === 1 ? 'Teacher' : 'Student'
+            role: role === 1 ? 'Teacher' : 'Student',
+            name,
+            department,
+            semester,
+            title
         });
 
         if (response.data && response.data.message === 'User registered successfully') {

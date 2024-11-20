@@ -1,14 +1,1 @@
 USE DueIt;
-
-INSERT INTO courses values(
-    'UE22CS251A', 'Digital Design and Computer Organization', 'CSE', 3, '20-10-2023', '10-12-2023' ,'21-12-2023',
-    'UE22CS252A', 'Data Structures and its Applications', 'CSE', 3, '21-10-2023', '11-12-2023' ,'23-12-2023',
-    'UE22CS241A', 'Statistics for Data Science', 'CSE', 3, '22-10-2023', '12-12-2023' ,'25-12-2023',
-    'UE22CS242A', 'Web Technologies', 'CSE', 3, '23-10-2023', '13-12-2023' ,'27-12-2023',
-    'UE22CS243A', 'Automata Formal Languages and Logic', 'CSE', 3, '24-10-2023', '14-12-2023' ,'29-12-2023',
-    'UE22EC251A', 'Analog Circuit Design', 'ECE', 3, '20-10-2023', '10-12-2023' ,'21-12-2023',
-    'UE22EC252A', 'Computer Aided Digital Design', 'ECE', 3, '21-10-2023', '11-12-2023' ,'23-12-2023',
-    'UE22EC241A', 'Mathematics For Electronics Engineers', 'ECE', 3, '22-10-2023', '12-12-2023' ,'25-12-2023',
-    'UE22EC242A', 'Network Analysis and Synthesis', 'ECE', 3, '23-10-2023', '13-12-2023' ,'27-12-2023',
-    'UE22EC243A', 'Signals and Systems', 'ECE', 3, '24-10-2023', '14-12-2023' ,'29-12-2023'
-    )

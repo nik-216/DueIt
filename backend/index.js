@@ -106,19 +106,20 @@ app.post('/api/signin', async (req, res) => {
 
 // Signup route
 app.post('/api/signup', async (req, res) => {
-    const { id, password, role } = req.body;
+    const { id, password, role, name, department, semester, title } = req.body;
 
     // Select table and ID column based on role
     const tableName = role === 'Student' ? 'students' : 'teachers';
     const idColumn = role === 'Student' ? 'student_id' : 'teacher_id';
+    const diff_col = role === 'Student' ? semester : title
 
     try {
         const hashedPassword = await hashPassword(password);
 
         // Insert new user into the database
         db.query(
-            `INSERT INTO ${tableName} (${idColumn}, password) VALUES (?, ?)`,
-            [id, hashedPassword],
+            `INSERT INTO ${tableName} VALUES (?, ?, ?, ?, ?)`,
+            [id, name, diff_col, department, hashedPassword],
             (err, results) => {
                 if (err) {
                     console.error('Database Query Error:', err.message);
@@ -133,28 +134,92 @@ app.post('/api/signup', async (req, res) => {
     }
 });
 
-app.get('/api/home', verifyToken, (req, res) => {
+app.get('/api/home_student', verifyToken, (req, res) => {
     const { userId, role } = req;
-    console.log("Token verified, userId:", userId, "role:", role); // Check token payload
+    console.log("Token verified, userId:", userId, "role:", role);
 
-    // Determine the table and ID column based on role
-    const tableName = role === 'Student' ? 'students' : 'teachers';
-    const idColumn = role === 'Student' ? 'student_id' : 'teacher_id';
+    db.query(
+        `SELECT name FROM students WHERE student_id = ?`,
+        [userId],
+        (err, results) => {
+            if (err) {
+                console.error('Database query error:', err);
+                return res.status(500).json({ message: 'Database query failed' });
+            }
+            if (results.length === 0) {
+                console.log('User not found');
+                return res.status(404).json({ message: 'User not found' });
+            }
 
-    db.query(`SELECT name FROM ${tableName} WHERE ${idColumn} = ?`, [userId], (err, results) => {
-        if (err) {
-            console.error('Database query error:', err); // Log database errors
-            return res.status(500).json({ message: 'Database query failed' });
+            const { name } = results[0];
+
+            db.query(
+                `SELECT c.class_ID, cr.course_name 
+                 FROM student_class sc
+                 JOIN classes c ON sc.class_ID = c.class_ID
+                 JOIN courses cr ON c.course_ID = cr.course_ID
+                 WHERE sc.student_ID = ?`,
+                [userId],
+                (err, classResults) => {
+                    if (err) {
+                        console.error('Database query error:', err);
+                        return res.status(500).json({ message: 'Database query failed' });
+                    }
+
+                    res.json({
+                        name,
+                        classes: classResults, // Send the classes along with the student's name
+                    });
+                }
+            );
         }
-        if (results.length === 0) {
-            console.log('User not found');
-            return res.status(404).json({ message: 'User not found' });
-        }
-
-        const { name } = results[0];
-        res.json({ message: 'Welcome to the home route!', name });
-    });
+    );
 });
+
+
+app.get('/api/home_teacher', verifyToken, (req, res) => {
+    const { userId, role } = req;
+
+    if (role !== 'Teacher') {
+        return res.status(403).json({ message: 'Access denied. Only teachers can access this route.' });
+    }
+
+    db.query(
+        `SELECT name FROM teachers WHERE teacher_id = ?`, 
+        [userId], 
+        (err, results) => {
+            if (err) {
+                console.error('Database query error:', err);
+                return res.status(500).json({ message: 'Database query failed' });
+            }
+
+            if (results.length === 0) {
+                console.log('User not found');
+                return res.status(404).json({ message: 'Teacher not found' });
+            }
+
+            const teacherName = results[0].name;
+
+            // Fetch classes assigned to the teacher with course ID and classroom
+            db.query(
+                `SELECT class_ID, course_ID, classroom, batch FROM classes WHERE teacher_ID = ?`, 
+                [userId], 
+                (err, classResults) => {
+                    if (err) {
+                        console.error('Database query error:', err);
+                        return res.status(500).json({ message: 'Failed to fetch classes' });
+                    }
+
+                    res.json({
+                        name: teacherName,
+                        classes: classResults, // Return the list of classes
+                    });
+                }
+            );
+        }
+    );
+});
+
 
 // Error handling middleware
 app.use((err, req, res, next) => {
