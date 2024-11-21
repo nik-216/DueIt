@@ -129,11 +129,13 @@ app.get('/api/home_student', verifyToken, (req, res) => {
             const { name } = results[0];
 
             db.query(
-                `SELECT c.class_ID, cr.course_name 
-                 FROM student_class sc
-                 JOIN classes c ON sc.class_ID = c.class_ID
-                 JOIN courses cr ON c.course_ID = cr.course_ID
-                 WHERE sc.student_ID = ?`,
+                `SELECT c.class_ID, cr.course_name
+                FROM classes c
+                JOIN courses cr ON c.course_ID = cr.course_ID
+                WHERE c.class_ID IN 
+                    (SELECT sc.class_ID
+                    FROM student_class sc
+                    WHERE sc.student_ID = ?)`,
                 [userId],
                 (err, classResults) => {
                     if (err) return res.status(500).json({ message: 'Database query failed' });
@@ -241,6 +243,35 @@ app.get('/api/teacher-classes', verifyToken, (req, res) => {
         res.json(classes);
     });
 });
+
+app.post('/api/addclass', verifyToken, (req, res) => {
+    const { userId } = req;
+    const { coursecode, section, department, semester, classroom, batch } = req.body;
+
+    // Basic validation
+    if (!coursecode || !section || !department || !semester || !classroom || !batch) {
+        return res.status(400).json({ error: 'All fields are required!' });
+    }
+
+    const class_ID = 'CL' + coursecode.slice(-3) + department.slice(-2) + classroom;
+    console.log('Generated class_ID:', class_ID);
+
+    db.query(
+        `CALL AddClass (?, ?, ?, ?, ?, ?)`,
+        [class_ID, 0, classroom, batch, coursecode, userId],
+        (err, results) => {
+            if (err) {
+                console.error('Database Query Error:', err.message);
+                return res.status(500).json({
+                    message: 'Database query failed',
+                    error: err.message, // Include the error message for debugging
+                });
+            }
+            return res.status(201).json({ message: 'Class registered successfully', classID: class_ID });
+        }
+    );
+});
+
 
 
 // Error handling middleware
