@@ -191,9 +191,9 @@ app.get('/api/teacher-classes', verifyToken, (req, res) => {
             s.name AS student_name
         FROM classes c
         JOIN courses co ON c.course_ID = co.course_ID
-        LEFT JOIN assignments a ON co.course_ID = a.course_ID
-        JOIN student_class sc ON c.class_ID = sc.class_ID
-        JOIN students s ON sc.student_ID = s.student_ID
+        LEFT JOIN assignments a ON c.course_ID = a.course_ID
+        LEFT JOIN student_class sc ON c.class_ID = sc.class_ID
+        LEFT JOIN students s ON sc.student_ID = s.student_ID
         WHERE c.teacher_ID = ?
         ORDER BY c.class_ID;`;
 
