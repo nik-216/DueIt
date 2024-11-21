@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 8000; // Default to 8000 if PORT is not set in 
 app.use(cors({
     origin: 'http://localhost:3000', // Adjust this to match your frontend's URL
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'], // Ensure Authorization is allowed
+    allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 app.use(express.json());
 
@@ -38,16 +38,15 @@ const hashPassword = async (password) => {
     }
 };
 
+// Middleware to verify token
 const verifyToken = (req, res, next) => {
-    const authHeader = req.headers['authorization']; // lowercase 'authorization'
+    const authHeader = req.headers['authorization'];
 
     if (!authHeader) {
         return res.status(403).json({ message: 'No token provided.' });
     }
-    // console.log(authHeader)
 
-    const token = authHeader.split(' ')[1]; // Extract token from header
-    // console.log(token)
+    const token = authHeader.split(' ')[1];
 
     if (!token) {
         return res.status(403).json({ message: 'No token provided' });
@@ -57,7 +56,7 @@ const verifyToken = (req, res, next) => {
         if (err) {
             return res.status(401).json({ message: 'Failed to authenticate token' });
         }
-        req.userId = decoded.Userid; // Make sure to match `id` here as used in the sign-in token creation
+        req.userId = decoded.Userid;
         req.role = decoded.role;
         next();
     });
@@ -66,36 +65,22 @@ const verifyToken = (req, res, next) => {
 // Login route
 app.post('/api/signin', async (req, res) => {
     const { id, password, role } = req.body;
-    
-    // Select table and ID column based on role
     const tableName = role === 'Student' ? 'students' : 'teachers';
     const idColumn = role === 'Student' ? 'student_id' : 'teacher_id';
 
-    // Fetch user by ID
     db.query(
         `SELECT * FROM ${tableName} WHERE ${idColumn} = ?`,
         [id],
         async (err, results) => {
             if (err) return res.status(500).json({ message: 'Database query failed' });
-
-            if (results.length === 0) {
-                return res.status(401).json({ message: 'Invalid ID or role' });
-            }
+            if (results.length === 0) return res.status(401).json({ message: 'Invalid ID or role' });
 
             const user = results[0];
-
             try {
-                // Verify password with Argon2
                 const isMatch = await argon2.verify(user.password, password);
-                if (!isMatch) {
-                    return res.status(401).json({ message: 'Incorrect password' });
-                }
+                if (!isMatch) return res.status(401).json({ message: 'Incorrect password' });
 
-                // Generate JWT
-                const token = jwt.sign({ Userid: id, role: role }, process.env.JWT_SECRET, {
-                    expiresIn: '1h',
-                });
-
+                const token = jwt.sign({ Userid: id, role }, process.env.JWT_SECRET, { expiresIn: '1h' });
                 res.json({ token });
             } catch (error) {
                 res.status(500).json({ message: 'Error verifying password' });
@@ -107,49 +92,39 @@ app.post('/api/signin', async (req, res) => {
 // Signup route
 app.post('/api/signup', async (req, res) => {
     const { id, password, role, name, department, semester, title } = req.body;
-
-    // Select table and ID column based on role
     const tableName = role === 'Student' ? 'students' : 'teachers';
     const idColumn = role === 'Student' ? 'student_id' : 'teacher_id';
-    const diff_col = role === 'Student' ? semester : title
+    const additionalField = role === 'Student' ? semester : title;
 
     try {
         const hashedPassword = await hashPassword(password);
 
-        // Insert new user into the database
         db.query(
             `INSERT INTO ${tableName} VALUES (?, ?, ?, ?, ?)`,
-            [id, name, diff_col, department, hashedPassword],
+            [id, name, additionalField, department, hashedPassword],
             (err, results) => {
                 if (err) {
                     console.error('Database Query Error:', err.message);
-                    return res.status(500).json({ message: 'Failed to register user', error: err.message });
+                    return res.status(500).json({ message: 'Failed to register user' });
                 }
                 res.json({ message: 'User registered successfully' });
             }
         );
     } catch (error) {
-        console.error('Error in Registration Process:', error.message);
         res.status(500).json({ message: 'Error processing registration', error: error.message });
     }
 });
 
+// Home route for students
 app.get('/api/home_student', verifyToken, (req, res) => {
-    const { userId, role } = req;
-    console.log("Token verified, userId:", userId, "role:", role);
+    const { userId } = req;
 
     db.query(
         `SELECT name FROM students WHERE student_id = ?`,
         [userId],
         (err, results) => {
-            if (err) {
-                console.error('Database query error:', err);
-                return res.status(500).json({ message: 'Database query failed' });
-            }
-            if (results.length === 0) {
-                console.log('User not found');
-                return res.status(404).json({ message: 'User not found' });
-            }
+            if (err) return res.status(500).json({ message: 'Database query failed' });
+            if (results.length === 0) return res.status(404).json({ message: 'User not found' });
 
             const { name } = results[0];
 
@@ -161,22 +136,16 @@ app.get('/api/home_student', verifyToken, (req, res) => {
                  WHERE sc.student_ID = ?`,
                 [userId],
                 (err, classResults) => {
-                    if (err) {
-                        console.error('Database query error:', err);
-                        return res.status(500).json({ message: 'Database query failed' });
-                    }
+                    if (err) return res.status(500).json({ message: 'Database query failed' });
 
-                    res.json({
-                        name,
-                        classes: classResults, // Send the classes along with the student's name
-                    });
+                    res.json({ name, classes: classResults });
                 }
             );
         }
     );
 });
 
-
+// Home route for teachers
 app.get('/api/home_teacher', verifyToken, (req, res) => {
     const { userId, role } = req;
 
@@ -185,39 +154,92 @@ app.get('/api/home_teacher', verifyToken, (req, res) => {
     }
 
     db.query(
-        `SELECT name FROM teachers WHERE teacher_id = ?`, 
-        [userId], 
+        `SELECT name FROM teachers WHERE teacher_id = ?`,
+        [userId],
         (err, results) => {
-            if (err) {
-                console.error('Database query error:', err);
-                return res.status(500).json({ message: 'Database query failed' });
-            }
-
-            if (results.length === 0) {
-                console.log('User not found');
-                return res.status(404).json({ message: 'Teacher not found' });
-            }
+            if (err) return res.status(500).json({ message: 'Database query failed' });
+            if (results.length === 0) return res.status(404).json({ message: 'Teacher not found' });
 
             const teacherName = results[0].name;
 
-            // Fetch classes assigned to the teacher with course ID and classroom
             db.query(
-                `SELECT class_ID, course_ID, classroom, batch FROM classes WHERE teacher_ID = ?`, 
-                [userId], 
+                `SELECT class_ID, course_ID, classroom, batch 
+                 FROM classes 
+                 WHERE teacher_ID = ?`,
+                [userId],
                 (err, classResults) => {
-                    if (err) {
-                        console.error('Database query error:', err);
-                        return res.status(500).json({ message: 'Failed to fetch classes' });
-                    }
+                    if (err) return res.status(500).json({ message: 'Failed to fetch classes' });
 
-                    res.json({
-                        name: teacherName,
-                        classes: classResults, // Return the list of classes
-                    });
+                    res.json({ name: teacherName, classes: classResults });
                 }
             );
         }
     );
+});
+
+// Teacher's class details
+app.get('/api/teacher-classes', verifyToken, (req, res) => {
+    const { userId } = req;
+
+    const query = `
+        SELECT 
+            c.class_ID, c.course_ID, c.classroom, 
+            co.isa1, co.isa2, co.esa,
+            a.assignment_ID, a.release_date, a.due_date, a.title,
+            s.name AS student_name
+        FROM classes c
+        JOIN courses co ON c.course_ID = co.course_ID
+        LEFT JOIN assignments a ON co.course_ID = a.course_ID
+        JOIN student_class sc ON c.class_ID = sc.class_ID
+        JOIN students s ON sc.student_ID = s.student_ID
+        WHERE c.teacher_ID = ?
+        ORDER BY c.class_ID;`;
+
+    db.query(query, [userId], (err, results) => {
+        if (err) return res.status(500).json({ message: 'Database query failed' });
+        if (results.length === 0) return res.status(404).json({ message: 'No classes found for the teacher' });
+
+        // Transform the data
+        const classes = results.reduce((acc, row) => {
+            if (!acc[row.class_ID]) {
+                acc[row.class_ID] = {
+                    class_ID: row.class_ID,
+                    course_ID: row.course_ID,
+                    classroom: row.classroom,
+                    exams: {
+                        isa1_date: row.isa1,
+                        isa2_date: row.isa2,
+                        esa_date: row.esa,
+                    },
+                    students: new Set(),
+                    assignments: new Map(),
+                };
+            }
+
+            // Add unique students
+            acc[row.class_ID].students.add(row.student_name);
+
+            // Add assignments
+            if (row.assignment_ID) {
+                acc[row.class_ID].assignments.set(row.assignment_ID, {
+                    assignment_ID: row.assignment_ID,
+                    start_date: row.release_date,
+                    due_date: row.due_date,
+                    title: row.title,
+                });
+            }
+
+            return acc;
+        }, {});
+
+        // Convert Sets and Maps to Arrays for the response
+        Object.values(classes).forEach(cls => {
+            cls.students = Array.from(cls.students); // Convert Set to Array
+            cls.assignments = Array.from(cls.assignments.values()); // Convert Map to Array
+        });
+
+        res.json(classes);
+    });
 });
 
 

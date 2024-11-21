@@ -29,6 +29,7 @@ function Hometeacher() {
                 if (response && response.data) {
                     setName4(response.data.name || "User"); // Set the name
                     setClasses(response.data.classes || []); // Set the classes
+                    localStorage.setItem('classes', classes)
                 } else {
                     console.warn("Unexpected response format:", response.data);
                 }
@@ -46,6 +47,7 @@ function Hometeacher() {
     }, []);
 
     const handleClassClick = (classId) => {
+        localStorage.setItem('classID', classId);
         navigate('/teachers');
     };
 

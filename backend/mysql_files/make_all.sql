@@ -114,19 +114,6 @@ INSERT INTO assignments VALUES
     ('AS22CS2211', 'Unit 3 Quiz', 'Complete task 1 and 2', '2024-9-10', '2024-9-20', 5, 'UE22CS252A'),
     ('AS22CS2151', 'Unit 4 Quiz', 'Complete task 1 and 2', '2024-11-10', '2024-10-25', 10, 'UE22CS252A');
 
-CREATE TABLE IF NOT EXISTS submissions(
-    submission_ID varchar(13) PRIMARY KEY,
-    sub_date date,
-    sub_time time,
-    marks_alloted int,
-    student_ID varchar(13),
-    assignment_ID varchar(13),
-    class_ID varchar(13),
-    FOREIGN KEY (student_ID) REFERENCES students(student_ID),
-    FOREIGN KEY (assignment_ID) REFERENCES assignments(assignment_ID),
-    FOREIGN KEY (class_ID) REFERENCES classes(class_ID)
-);
-
 INSERT INTO submissions VALUES
     ('SUB1000', '2024-9-17', '14:30:00', 5, 'PES1UG22CS111', 'AS22CS2111', 'CL251CS221'),
     ('SUB1001', '2024-9-13', '11:33:00', 4, 'PES1UG22CS333', 'AS22CS2111', 'CL251CS221'),

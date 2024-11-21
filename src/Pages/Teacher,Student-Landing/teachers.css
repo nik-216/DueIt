@@ -168,3 +168,17 @@
     font-family: 'Marcellus', serif;
 }
 
+.add-student6 {
+    font-family: Marcellus;
+    width: 175px;
+    margin: 8px 0;
+    color: #FFFFFF;
+    background-color: #000000;
+    padding: 2px 20px;
+    font-size: 20px;
+    border: #FFFFFF;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
