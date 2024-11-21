@@ -5,7 +5,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 function Updateassign() {
     const navigate = useNavigate();
     const location = useLocation();
-    const assignmentNumber = location.state?.assignmentNumber || 'No Assignment Selected';
+    const assignmentNumber = location.state?.assignment_ID || 'No Assignment Selected';
     const [students, setStudents] = useState([
         {
             id: 'XYZ',

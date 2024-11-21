@@ -11,6 +11,7 @@ function Addstudent() {
     const [selectedStudent, setSelectedStudent] = useState('');
     const [students, setStudents] = useState([]);
     const [id9, setId9] = useState('');
+    const [numStudents, setNumStudents] = useState(0); // Track number of students in the class
 
     // Fetch students in the class on component mount
     useEffect(() => {
@@ -22,19 +23,19 @@ function Addstudent() {
         }
     }, [class_ID]);
 
-        const fetchStudentsInClass = async () => {
-            try {
-                const response = await axios.get(`http://localhost:8000/api/fetchstudents/${class_ID}`);
-                setStudents(response.data.students || []);
-            } catch (error) {
-                console.error('Error fetching students:', error);
-                alert('Failed to fetch students.');
-            }
-        };
+    const fetchStudentsInClass = async () => {
+        try {
+            const response = await axios.get(`http://localhost:8000/api/fetchstudents/${class_ID}`);
+            setStudents(response.data.students || []);
+            setNumStudents(response.data.num_st || 0); // Set number of students
+        } catch (error) {
+            console.error('Error fetching students:', error);
+            alert('Failed to fetch students.');
+        }
+    };
     
-
-    const handleStudentClick9 = (student) => {
-        setSelectedStudent(student); // Set selected student on click
+    const handleDoneClick9 = (student) => {
+        navigate('/teachers');
     };
 
     const handleEnterClick9 = async () => {
@@ -57,6 +58,26 @@ function Addstudent() {
         }
     };
 
+    const handleRemoveClick9 = async () => {
+        if (!id9) {
+            alert('Please enter an ID before proceeding.');
+            return;
+        }
+
+        try {
+            const response = await axios.post('http://localhost:8000/api/removestudent', {
+                classId: class_ID,
+                studentId: id9,
+            });
+            alert('Student removed successfully!');
+            setId9(''); // Clear input field
+            fetchStudentsInClass(); // Refresh the student list
+        } catch (error) {
+            console.error('Error removing student:', error);
+            alert(error.response?.data?.message || 'Failed to remove student.');
+        }
+    };
+
     const handleLogo9Click = () => {
         navigate('/teachers'); // Navigate to the teacher's page
     };
@@ -69,6 +90,9 @@ function Addstudent() {
             <div id="bg2">
                 <div id="text9">
                     <p>Add Student to Class: {class_ID}</p>
+                </div>
+                <div id="student-info">
+                    <p>Number of Students in Class: {numStudents}</p> {/* Display num_st */}
                 </div>
                 <div className="form-all9">
                     <div className="form-item9">
@@ -83,6 +107,24 @@ function Addstudent() {
                         />
                     </div>
                 </div>
+                <div id="ADD9">
+                    <button
+                        className="toggle-button9"
+                        onClick={handleEnterClick9 }
+                        style={{ color: '#6BC5D2', fontSize: '20px' }}
+                    >
+                        +
+                    </button>
+                </div>
+                <div id="SUB9">
+                    <button
+                        className="toggle-button9"
+                        onClick={handleRemoveClick9 }
+                        style={{ color: '#6BC5D2', fontSize: '20px' }}
+                    >
+                        -
+                    </button>
+                </div>
                 <div id="name-box9">
                 <div id="student-text9">Students</div>
                     {students.length === 0 ? (
@@ -93,7 +135,6 @@ function Addstudent() {
                                 key={index}
                                 id={`name${index + 1}-button`}
                                 className={`name-button9 ${selectedStudent === student.student_ID ? 'selected' : ''}`}
-                                onClick={() => handleStudentClick9(student)}
                             >
                                 {student.student_ID}
                             </div>
@@ -103,10 +144,10 @@ function Addstudent() {
                 <div id="enter9">
                     <button
                         className="toggle-button9"
-                        onClick={handleEnterClick9}
+                        onClick={handleDoneClick9}
                         style={{ color: '#6BC5D2', fontSize: '20px' }}
                     >
-                        ENTER
+                        DONE
                     </button>
                 </div>
             </div>

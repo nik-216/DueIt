@@ -41,3 +41,16 @@ BEGIN
 END //
 
 DELIMITER ;
+
+DELIMITER $$
+
+CREATE TRIGGER decrement_student_count
+AFTER DELETE ON student_class
+FOR EACH ROW
+BEGIN
+    UPDATE classes
+    SET num_st = num_st - 1
+    WHERE class_ID = OLD.class_ID;
+END$$
+
+DELIMITER ;

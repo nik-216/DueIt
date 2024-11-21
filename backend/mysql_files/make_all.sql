@@ -52,7 +52,6 @@ CREATE TABLE IF NOT EXISTS assignments(
 CREATE TABLE IF NOT EXISTS submissions(
     submission_ID varchar(13) PRIMARY KEY,
     sub_date date,
-    sub_time time,
     marks_alloted int,
     student_ID varchar(13),
     assignment_ID varchar(13),
@@ -115,10 +114,10 @@ INSERT INTO assignments VALUES
     ('AS22CS2151', 'Unit 4 Quiz', 'Complete task 1 and 2', '2024-11-10', '2024-10-25', 10, 'UE22CS252A');
 
 INSERT INTO submissions VALUES
-    ('SUB1000', '2024-9-17', '14:30:00', 5, 'PES1UG22CS111', 'AS22CS2111', 'CL251CS221'),
-    ('SUB1001', '2024-9-13', '11:33:00', 4, 'PES1UG22CS333', 'AS22CS2111', 'CL251CS221'),
-    ('SUB1002', '2024-9-17', '9:23:00', 0, 'PES1UG22CS111', 'AS22CS2211', 'CL252CS222'),
-    ('SUB1003', '2024-9-13', '6:13:00', 0, 'PES1UG22CS333', 'AS22CS2211', 'CL252CS222');
+    ('SUB1000', '2024-9-17', 5, 'PES1UG22CS111', 'AS22CS2111', 'CL251CS221'),
+    ('SUB1001', '2024-9-13', 4, 'PES1UG22CS333', 'AS22CS2111', 'CL251CS221'),
+    ('SUB1002', '2024-9-17', 0, 'PES1UG22CS111', 'AS22CS2211', 'CL252CS222'),
+    ('SUB1003', '2024-9-13', 0, 'PES1UG22CS333', 'AS22CS2211', 'CL252CS222');
 
 INSERT into student_class VALUES
     ('PES1UG22CS111', 'CL251CS221'),

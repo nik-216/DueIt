@@ -100,3 +100,17 @@
     font-family: Marcellus;
     left: 30px;
 }
+#ADD9
+{
+    position: absolute;
+    left: 550px;
+    top: 200px;
+    color: #000000;
+}
+#SUB9
+{
+    position: absolute;
+    left: 350px;
+    top: 200px;
+    color: #000000;
+}

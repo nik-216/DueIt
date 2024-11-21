@@ -52,8 +52,16 @@ function Teachers() {
     const handleAddClassClick = () => navigate('/addclass');
     const handleAddAssignClick = () => navigate('/addassign', { state: { class_ID: selectedClass }});
     const handleAddStudentClick = () =>navigate('/addstudent', { state: { class_ID: selectedClass }} );
-    const handleAssignmentClick = (assignmentID) =>
-        navigate('/viewassign', { state: { assignmentID } });
+    const handleAssignmentClick = (assignmentID, classID) => {
+        navigate('/viewassign', { 
+            state: { 
+                assignmentID: assignmentID, 
+                class_ID: classID, 
+                title: allClasses[classID].assignments.find(assignment => assignment.assignment_ID === assignmentID)?.title,
+                start_date: allClasses[classID].assignments.find(assignment => assignment.assignment_ID === assignmentID)?.start_date
+            }
+        });
+    };    
     const handleLogoutClick = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('classID');
@@ -130,7 +138,7 @@ function Teachers() {
                                     {classDetails.assignments.map((assignment) => (
                                         <tr
                                             key={assignment.assignment_ID}
-                                            onClick={() => handleAssignmentClick(assignment.assignment_ID)}
+                                            onClick={() => handleAssignmentClick(assignment.assignment_ID, selectedClass)}
                                         >
                                             <td>{assignment.assignment_ID}</td>
                                             <td>{formatDate(assignment.start_date)}</td>

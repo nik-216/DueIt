@@ -80,7 +80,7 @@
 #enter7
 {
     position: absolute;
-    left: 1100px;
+    left: 550px;
     top: 450px;
     color: #000000;
 }
@@ -115,13 +115,14 @@
     margin-top: 3px;
     outline: none;
     transition: border-color 0.3s;
-    margin-left: 0px;
+    /* margin-left: 0px; */
     position: relative;
     font-family: Marcellus;
+    left: 600;
 }
 
 .form-item7 {
     margin-bottom: 10px;
     position: relative;
-    margin-left: 50px;
+    margin-left:450px;
 }

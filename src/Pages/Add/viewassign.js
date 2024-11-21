@@ -1,84 +1,96 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './viewassign.css';
-import { useNavigate , useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import axios from 'axios';
 
 function Viewassign() {
     const navigate = useNavigate();
     const location = useLocation();
-    const assignmentNumber = location.state?.assignmentNumber || 'No Assignment Selected';
-    const [selectedClass, setSelectedClass] = useState('');
-    const [classrooms, setClassrooms] = useState(['Class 1', 'Class 2', 'Class 3', 'Class 4', 'Class 5']);
-    const [students, setStudents] = useState([
-        { 
-            name: 'Name 1', 
-            startDate: '19-11-2024', 
-            submissionDate: '20-11-2024', 
-            title: 'DA Hackathon', 
-            marks: '', 
-            status: 'Submitted' 
-        },
-        { 
-            name: 'Name 2', 
-            startDate: '19-11-2024', 
-            submissionDate: '', 
-            title: 'DA Hackathon', 
-            marks: '', 
-            status: 'Not Submitted' 
-        },
-        { 
-            name: 'Name 3', 
-            startDate: '19-11-2024', 
-            submissionDate: '21-11-2024', 
-            title: 'DA Hackathon', 
-            marks: '', 
-            status: 'Submitted' 
+    const assignmentID = location.state?.assignmentID || 'No Assignment Selected';
+    const selectedClass = location.state?.class_ID || 'No Class Selected';
+    const title = location.state?.title || 'No Assignment Selected'
+    const start_date = location.state?.start_date || 'No Assignment Selected'
+    const [students, setStudents] = useState([]);
+    const [marksUpdated, setMarksUpdated] = useState(false); // Track if marks are updated
+
+    useEffect(() => {
+        // Fetch the submissions from the backend when the component loads
+        const fetchSubmissions = async () => {
+            try {
+                await axios.get(`http://localhost:8000/api/submissions/${assignmentID}`)
+                .then(response => {
+                    setStudents(response.data.submissions);
+                })
+                .catch(error => {
+                    console.error('Error fetching submissions:', error);
+                });
+            } catch (error) {
+                console.error('Error fetching submissions:', error);
+            }
+        };
+
+        if (assignmentID !== 'No Assignment Selected') {
+            fetchSubmissions();
         }
-    ]); 
-    const handleClassNameClick = (className) => {
-        setSelectedClass(className);
+    }, [assignmentID]);
+
+    const formatDate = (dateString) => {
+        if (!dateString) return 'N/A';
+        const date = new Date(dateString);
+        return date.toISOString().split('T')[0]; // YYYY-MM-DD format
+    };
+
+    const handleBackClick = (className) => {
+        navigate('/teachers');
     };
 
     const handleMarksChange = (index, value) => {
         const updatedStudents = [...students];
         updatedStudents[index].marks = value;
         setStudents(updatedStudents);
+        setMarksUpdated(true); // Mark that the data is updated
     };
-    const handleEnter11Click = () => {
-        alert('Marks updated');
+
+    const handleEnterClick = () => {
+        if (marksUpdated) {
+            // Update marks on the backend
+            students.forEach((student, index) => {
+                if (student.marks) {
+                    axios.post(`http://localhost:8000/api/updateMarks`, {
+                        assignmentID: assignmentID,
+                        studentId: student.studentID, // Ensure you have the student ID
+                        marks: student.marks
+                    }).then(response => {
+                        console.log('Marks updated for', student.studentID);
+                    }).catch(error => {
+                        console.error('Error updating marks:', error);
+                    });
+                }
+            });
+            // alert('Marks updated');
+        } else {
+            alert('No changes made');
+        }
     };
-    const handleLogo11Click = () => {
-        navigate('/teachers'); // Navigates to the home page
+
+    const handleLogoClick = () => {
+        navigate('/teachers');
     };
 
     return (
         <div id="bg1">
-            <div id="DUEIT11" onClick={handleLogo11Click} style={{ cursor: 'pointer' }}>
+            <div id="DUEIT11" onClick={handleLogoClick} style={{ cursor: 'pointer' }}>
                 <img src="/logo.png" alt="pic" style={{ width: '200px', height: 'auto' }} />
             </div>
             <div id="bg2">
                 <div id="text11">
-                    <h1>{assignmentNumber}</h1>
+                    <h1>{assignmentID}</h1>
                 </div>
 
                 <div id="similar" style={{ textAlign: 'center', marginBottom: '30px', fontWeight: 'bold' }}>
                     <span>Classroom: {selectedClass || 'None Selected'}</span>
-                    <span style={{ margin: '0 20px' }}>Title: {students.length > 0 ? students[0].title : 'N/A'}</span>
-                    <span>Start Date: {students.length > 0 ? students[0].startDate : 'N/A'}</span>
-                </div>
-
-                <div id="classroom-box11">
-                    <div id="classroom-text11">Classroom</div>
-                    <div id="classroom11">
-                        {classrooms.map((classroom, index) => (
-                            <button
-                                key={index}
-                                className="class-button11"
-                                onClick={() => handleClassNameClick(classroom)}
-                            >
-                                {classroom}
-                            </button>
-                        ))}
-                    </div>
+                    <span style={{ margin: '0 20px' }}>Title: {title}</span>
+                    <span>Start Date: {formatDate(start_date)}</span>
                 </div>
                 <div className="table-container11">
                     <table className="assignment-table11">
@@ -86,16 +98,14 @@ function Viewassign() {
                             <tr>
                                 <th>Name</th>
                                 <th>Submission Date</th>
-                                <th>Status</th>
                                 <th>Allot Marks</th>
                             </tr>
                         </thead>
                         <tbody>
                             {students.map((student, index) => (
                                 <tr key={index}>
-                                    <td>{student.name}</td>
-                                    <td>{student.submissionDate || 'N/A'}</td>
-                                    <td>{student.status}</td>
+                                    <td>{student.studentID || 'N/A'}</td>
+                                    <td>{formatDate(student.submissionDate) || 'N/A'}</td>
                                     <td>
                                         <input 
                                             type="number" 
@@ -112,8 +122,12 @@ function Viewassign() {
                     </table>
                 </div>
                 <div id="enter11">
-                    <button className="toggle-button11" onClick={handleEnter11Click} style={{ color: '#6BC5D2', fontSize: '20px' }}>
+                    <button className="toggle-button11" onClick={handleEnterClick} style={{ color: '#6BC5D2', fontSize: '20px' }}>
                      ENTER</button>
+                </div>
+                <div id="back11">
+                    <button className="toggle-button11" onClick={handleBackClick} style={{ color: '#6BC5D2', fontSize: '20px' }}>
+                     BACK</button>
                 </div>
             </div>
         </div>

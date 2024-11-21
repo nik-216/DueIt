@@ -38,7 +38,7 @@ function Homestudent() {
 
     const handleClassClick = (classID) => {
         localStorage.setItem('classID', classID);
-        navigate(`/student`);
+        navigate(`/student`); // Navigate to a class-specific route
     };
 
     return (

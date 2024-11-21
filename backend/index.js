@@ -93,7 +93,6 @@ app.post('/api/signin', async (req, res) => {
 app.post('/api/signup', async (req, res) => {
     const { id, password, role, name, department, semester, title } = req.body;
     const tableName = role === 'Student' ? 'students' : 'teachers';
-    const idColumn = role === 'Student' ? 'student_id' : 'teacher_id';
     const additionalField = role === 'Student' ? semester : title;
 
     try {
@@ -276,9 +275,10 @@ app.get('/api/fetchstudents/:classId', (req, res) => {
     const { classId } = req.params; // Get classId from URL parameters
 
     const query = `
-        SELECT student_ID
-        FROM student_class
-        WHERE class_ID = ?;
+        SELECT sc.student_ID, c.num_st
+        FROM student_class sc
+        JOIN classes c ON sc.class_ID = c.class_ID
+        WHERE sc.class_ID = ?;
     `;
 
     db.query(query, [classId], (err, results) => {
@@ -287,7 +287,12 @@ app.get('/api/fetchstudents/:classId', (req, res) => {
             return res.status(500).json({ message: 'Database query failed' });
         }
 
-        res.json({ students: results });
+        if (results.length === 0) {
+            return res.status(404).json({ message: 'No students found for this class' });
+        }
+
+        // Return the student list along with num_st
+        res.json({ students: results, num_st: results[0]?.num_st });
     });
 });
 
@@ -313,6 +318,286 @@ app.post('/api/addstudent', (req, res) => {
         res.status(201).json({ message: 'Student successfully added to class' });
     });
 });
+
+app.post('/api/removestudent', (req, res) => {
+    const { classId, studentId } = req.body;
+
+    const insertQuery = `
+        DELETE FROM student_class
+        WHERE student_ID = ? and class_ID = ?;
+    `;
+
+    db.query(insertQuery, [studentId, classId], (err, results) => {
+        if (err) {
+            if (err.code === 'ER_DUP_ENTRY') {
+                return res.status(409).json({ message: 'Student already enrolled in this class' });
+            }
+            console.error('Error inserting student:', err.message);
+            return res.status(500).json({ message: 'Failed to remove student to class' });
+        }
+
+        res.status(201).json({ message: 'Student successfully removed to class' });
+    });
+});
+
+app.post('/api/addassignment', (req, res) => {
+    const { title, description, releaseDate, dueDate, maxMarks, class_ID } = req.body;
+
+    // Validate required fields
+    if (!title || !description || !releaseDate || !dueDate || !maxMarks || !class_ID) {
+        return res.status(400).json({ message: 'All fields are required' });
+    }
+    const assignment_ID = 'AS' + releaseDate.slice(0, 2) + 'CS' + (Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000);
+
+    // Query to fetch course_ID from classes table
+    const getCourseIdQuery = `SELECT course_ID FROM classes WHERE class_ID = ?`;
+
+    db.query(getCourseIdQuery, [class_ID], (err, results) => {
+        if (err) {
+            console.error('Error fetching course_ID:', err.message);
+            return res.status(500).json({ message: 'Database query failed' });
+        }
+
+        if (results.length === 0) {
+            return res.status(404).json({ message: 'Class not found' });
+        }
+
+        const course_ID = results[0].course_ID;
+
+        // Insert the assignment into assignments table
+        const insertAssignmentQuery = `
+            INSERT INTO assignments 
+            VALUES (?, ?, ?, ?, ?, ?, ?);
+        `;
+
+        db.query(insertAssignmentQuery, [assignment_ID, title, description, releaseDate, dueDate, maxMarks, course_ID], (err, results) => {
+            if (err) {
+                console.error('Error adding assignment:', err.message);
+                return res.status(500).json({ message: 'Database query failed' });
+            }
+
+            res.status(201).json({ message: 'Assignment added successfully', assignment_ID });
+        });
+    });
+});
+
+app.get('/api/submissions/:assignmentID', (req, res) => {
+    const { assignmentID } = req.params;
+
+    if (!assignmentID) {
+        return res.status(400).json({ message: 'Assignment ID is required.' });
+    }
+
+    const query = `
+        SELECT 
+            s.student_ID,
+            s.sub_date AS submissionDate,  
+            s.marks_alloted
+        FROM submissions AS s
+        WHERE s.assignment_id = ?
+    `;
+
+    db.query(query, [assignmentID], (err, results) => {
+        if (err) {
+            console.error('Error fetching submissions:', err);
+            return res.status(500).json({ message: 'Error fetching submissions.' });
+        }
+
+        const submissions = results.map((row) => ({
+            studentID: row.student_ID,
+            submissionDate: row.submissionDate,
+            marks: row.marks_alloted,
+        }));
+
+        res.json({ submissions: submissions });
+    });
+});
+
+// Update marks for a specific submission
+app.post('/api/updateMarks', (req, res) => {
+    const { assignmentID, studentId, marks } = req.body;
+    console.log( assignmentID, studentId, marks)
+    // Check if the user is a teacher (only teachers can update marks)
+    // if (role !== 'Teacher') {
+    //     return res.status(403).json({ message: 'Access denied. Only teachers can update marks.' });
+    // }
+
+    // Validate required fields
+    if (!assignmentID || !studentId || !marks) {
+        return res.status(400).json({ message: 'Assignment ID, student ID, and marks are required' });
+    }
+
+    // Update the marks for the specific student and assignment
+    const query = `
+        UPDATE submissions
+        SET marks_alloted = ?
+        WHERE assignment_id = ? AND student_ID = ?;
+    `;
+
+    db.query(query, [marks, assignmentID, studentId], (err, results) => {
+        if (err) {
+            console.error('Error updating marks:', err.message);
+            return res.status(500).json({ message: 'Database query failed' });
+        }
+
+        if (results.affectedRows === 0) {
+            return res.status(404).json({ message: 'Submission not found or marks not updated' });
+        }
+
+        res.status(200).json({ message: 'Marks updated successfully' });
+    });
+});
+
+app.get('/api/submissionCount/:assignmentID', async (req, res) => {
+    const { assignmentID } = req.params;
+    
+    try {
+        // Count the number of submissions for the given assignmentID
+        const count = await Submission.countDocuments({ assignmentID });
+
+        // Send the count in the response
+        res.status(200).json({ submissionCount: count });
+    } catch (error) {
+        console.error('Error fetching submission count:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
+app.get('/api/student-classes', verifyToken, (req, res) => {
+    const { userId } = req;
+
+    const query = `
+        SELECT 
+            c.class_ID, c.course_ID, c.classroom, 
+            co.isa1, co.isa2, co.esa,
+            a.assignment_ID, a.release_date, a.due_date, a.title
+        FROM classes c
+        JOIN courses co ON c.course_ID = co.course_ID
+        LEFT JOIN assignments a ON c.course_ID = a.course_ID
+        LEFT JOIN student_class sc ON c.class_ID = sc.class_ID
+        LEFT JOIN students s ON sc.student_ID = s.student_ID
+        WHERE s.student_ID = ?
+        ORDER BY c.class_ID;`;
+
+    db.query(query, [userId], (err, results) => {
+        if (err) return res.status(500).json({ message: 'Database query failed' });
+        if (results.length === 0) return res.status(404).json({ message: 'No classes found for the teacher' });
+
+        // Transform the data
+        const classes = results.reduce((acc, row) => {
+            if (!acc[row.class_ID]) {
+                acc[row.class_ID] = {
+                    class_ID: row.class_ID,
+                    course_ID: row.course_ID,
+                    classroom: row.classroom,
+                    exams: {
+                        isa1_date: row.isa1,
+                        isa2_date: row.isa2,
+                        esa_date: row.esa,
+                    },
+                    assignments: new Map(),
+                };
+            }
+
+            // Add assignments
+            if (row.assignment_ID) {
+                acc[row.class_ID].assignments.set(row.assignment_ID, {
+                    assignment_ID: row.assignment_ID,
+                    start_date: row.release_date,
+                    due_date: row.due_date,
+                    title: row.title,
+                });
+            }
+
+            return acc;
+        }, {});
+
+        // Convert Sets and Maps to Arrays for the response
+        Object.values(classes).forEach(cls => {
+            cls.students = Array.from(cls.students); // Convert Set to Array
+            cls.assignments = Array.from(cls.assignments.values()); // Convert Map to Array
+        });
+
+        res.json(classes);
+    });
+});
+
+app.get('/api/class-details/:classID', (req, res) => {
+    const { classID } = req.params; // Get classID from URL parameters
+
+    const assignmentQuery = `
+        SELECT a.assignment_ID, a.release_date AS startDate, a.due_date AS dueDate, a.title
+        FROM assignments a
+        JOIN classes cl ON cl.course_ID = a.course_ID
+        WHERE class_ID = ?;
+    `;
+
+    const examDatesQuery = `
+        SELECT isa1, isa2, esa
+        FROM classes
+        JOIN courses ON courses.course_ID = classes.course_ID
+        WHERE class_ID = ?;
+    `;
+
+    // Execute both queries
+    db.query(assignmentQuery, [classID], (assignmentErr, assignmentResults) => {
+        if (assignmentErr) {
+            console.error('Error fetching assignments:', assignmentErr.message);
+            return res.status(500).json({ message: 'Database query failed for assignments' });
+        }
+
+        db.query(examDatesQuery, [classID], (examErr, examResults) => {
+            if (examErr) {
+                console.error('Error fetching exam dates:', examErr.message);
+                return res.status(500).json({ message: 'Database query failed for exam dates' });
+            }
+
+            if (examResults.length === 0) {
+                return res.status(404).json({ message: 'Exam dates not found for this class' });
+            }
+
+            // Prepare the response data
+            const response = {
+                assignments: assignmentResults,
+                examDates: {
+                    isa1: examResults[0]?.isa1,
+                    isa2: examResults[0]?.isa2,
+                    esa: examResults[0]?.esa,
+                },
+            };
+
+            res.json(response);
+        });
+    });
+});
+
+app.post('/api/submit-assignment', verifyToken, (req, res) => {
+    const { userId } = req;
+    const { assignment_ID, class_ID } = req.body; // Get assignment_ID and class_ID from body
+    const submissionDate = new Date().toISOString().split('T')[0]; // Current date in YYYY-MM-DD format
+
+    if (!userId || !assignment_ID || !class_ID) {
+        return res.status(400).json({ message: 'Student ID, Assignment ID, and Class ID are required' });
+    }
+
+    const submission_ID = 'SUB' + (Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000);
+    // console.log(submission_ID);
+
+    const query = `
+        INSERT INTO submissions
+        VALUES (?, ?, ?, ?, ?, ?);
+    `;
+
+    db.query(query, [submission_ID, submissionDate, 0, userId, assignment_ID, class_ID], (err, result) => {
+        if (err) {
+            console.error('Error submitting assignment:', err.message);
+            return res.status(500).json({ message: 'Error submitting assignment' });
+        }
+
+        res.status(200).json({ message: 'Assignment submitted successfully' });
+    });
+});
+
 
 // Error handling middleware
 app.use((err, req, res, next) => {
