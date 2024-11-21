@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './teachers.css';
+import './student.css';
 import { useNavigate } from 'react-router-dom';
 
 function Student() {
@@ -60,7 +60,7 @@ function Student() {
                 </div>
 
                 {/* ISA Section */}
-                <div id='isa-box5'>
+                <div id='isa-box10'>
                     <div id='isa1' className='exams10'>isa1:</div>
                     <div id='isa2' className='exams10'>isa2:</div>
                     <div id='esa' className='exams10'>esa:</div>

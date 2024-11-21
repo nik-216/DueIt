@@ -102,7 +102,7 @@ function Updateassign() {
                                         {student.status === 'Not Submitted' ? (
                                             <button
                                                 onClick={() => handleSubmitClick(index)}
-                                                style={{ color: '#6BC5D2', fontSize: '16px', cursor: 'pointer' }}>
+                                                style={{ color: '#000000', fontSize: '16px', cursor: 'pointer' }}>
                                                 Submit
                                             </button>
                                         ) : (
