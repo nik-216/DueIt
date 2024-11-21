@@ -246,19 +246,19 @@ app.get('/api/teacher-classes', verifyToken, (req, res) => {
 
 app.post('/api/addclass', verifyToken, (req, res) => {
     const { userId } = req;
-    const { coursecode, section, department, semester, classroom, batch } = req.body;
+    const { coursecode, department, classroom, batch } = req.body;
 
     // Basic validation
-    if (!coursecode || !section || !department || !semester || !classroom || !batch) {
+    if (!coursecode || !department || !classroom || !batch) {
         return res.status(400).json({ error: 'All fields are required!' });
     }
 
-    const class_ID = 'CL' + coursecode.slice(-3) + department.slice(-2) + classroom;
+    const class_ID = 'CL' + coursecode.slice(-4, -1) + department.slice(0, 2) + classroom.slice(-3);
     console.log('Generated class_ID:', class_ID);
 
     db.query(
-        `CALL AddClass (?, ?, ?, ?, ?, ?)`,
-        [class_ID, 0, classroom, batch, coursecode, userId],
+        `CALL AddClass (?, ?, ?, ?, ?)`,
+        [class_ID, classroom, batch, coursecode, userId],
         (err, results) => {
             if (err) {
                 console.error('Database Query Error:', err.message);
@@ -272,7 +272,47 @@ app.post('/api/addclass', verifyToken, (req, res) => {
     );
 });
 
+app.get('/api/fetchstudents/:classId', (req, res) => {
+    const { classId } = req.params; // Get classId from URL parameters
 
+    const query = `
+        SELECT student_ID
+        FROM student_class
+        WHERE class_ID = ?;
+    `;
+
+    db.query(query, [classId], (err, results) => {
+        if (err) {
+            console.error('Error fetching students:', err.message);
+            return res.status(500).json({ message: 'Database query failed' });
+        }
+
+        res.json({ students: results });
+    });
+});
+
+
+// Add a student to a class
+app.post('/api/addstudent', (req, res) => {
+    const { classId, studentId } = req.body;
+
+    const insertQuery = `
+        INSERT INTO student_class (class_ID, student_ID) 
+        VALUES (?, ?);
+    `;
+
+    db.query(insertQuery, [classId, studentId], (err, results) => {
+        if (err) {
+            if (err.code === 'ER_DUP_ENTRY') {
+                return res.status(409).json({ message: 'Student already enrolled in this class' });
+            }
+            console.error('Error inserting student:', err.message);
+            return res.status(500).json({ message: 'Failed to add student to class' });
+        }
+
+        res.status(201).json({ message: 'Student successfully added to class' });
+    });
+});
 
 // Error handling middleware
 app.use((err, req, res, next) => {

@@ -50,8 +50,8 @@ function Teachers() {
 
     // Navigate to different routes
     const handleAddClassClick = () => navigate('/addclass');
-    const handleAddAssignClick = () => navigate('/addassign');
-    const handleAddStudentClick = () => navigate('/addstudent')
+    const handleAddAssignClick = () => navigate('/addassign', { state: { class_ID: selectedClass }});
+    const handleAddStudentClick = () =>navigate('/addstudent', { state: { class_ID: selectedClass }} );
     const handleAssignmentClick = (assignmentID) =>
         navigate('/viewassign', { state: { assignmentID } });
     const handleLogoutClick = () => {
