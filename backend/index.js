@@ -287,10 +287,6 @@ app.get('/api/fetchstudents/:classId', (req, res) => {
             return res.status(500).json({ message: 'Database query failed' });
         }
 
-        if (results.length === 0) {
-            return res.status(404).json({ message: 'No students found for this class' });
-        }
-
         // Return the student list along with num_st
         res.json({ students: results, num_st: results[0]?.num_st });
     });

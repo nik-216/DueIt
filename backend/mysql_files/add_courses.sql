@@ -68,3 +68,8 @@ SELECT COUNT(*) AS submissionCount
         FROM submissions
         GROUP BY assignment_ID 
         HAVING assignment_ID = 'AS22CS2121';
+
+SELECT sc.student_ID, c.num_st
+        FROM student_class sc
+        JOIN classes c ON sc.class_ID = c.class_ID
+        WHERE sc.class_ID = 'CL243CS113';
