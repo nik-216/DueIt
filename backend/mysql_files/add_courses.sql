@@ -63,3 +63,8 @@ SELECT isa1, isa2, esa
         FROM classes
         JOIN courses ON courses.course_ID = classes.`course_ID`
         WHERE class_ID = ?
+
+SELECT COUNT(*) AS submissionCount
+        FROM submissions
+        GROUP BY assignment_ID 
+        HAVING assignment_ID = 'AS22CS2121';
