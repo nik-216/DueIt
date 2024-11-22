@@ -8,39 +8,45 @@ function Viewassign() {
     const location = useLocation();
     const assignmentID = location.state?.assignmentID || 'No Assignment Selected';
     const selectedClass = location.state?.class_ID || 'No Class Selected';
-    const title = location.state?.title || 'No Assignment Selected'
-    const start_date = location.state?.start_date || 'No Assignment Selected'
+    const title = location.state?.title || 'No Assignment Selected';
     const [students, setStudents] = useState([]);
-    const [marksUpdated, setMarksUpdated] = useState(false); // Track if marks are updated
+    const [submissionCount, setSubmissionCount] = useState(0); // State to hold submission count
+    const [marksUpdated, setMarksUpdated] = useState(false);
 
     useEffect(() => {
-        // Fetch the submissions from the backend when the component loads
+        // Fetch submissions for the assignment
         const fetchSubmissions = async () => {
             try {
-                await axios.get(`http://localhost:8000/api/submissions/${assignmentID}`)
-                .then(response => {
-                    setStudents(response.data.submissions);
-                })
-                .catch(error => {
-                    console.error('Error fetching submissions:', error);
-                });
+                const response = await axios.get(`http://localhost:8000/api/submissions/${assignmentID}`);
+                setStudents(response.data.submissions);
             } catch (error) {
                 console.error('Error fetching submissions:', error);
             }
         };
 
+        // Fetch the submission count for the assignment
+        const fetchSubmissionCount = async () => {
+            try {
+                const response = await axios.get(`http://localhost:8000/api/submissions/count/${assignmentID}`);
+                setSubmissionCount(response.data.submissionCount);
+            } catch (error) {
+                console.error('Error fetching submission count:', error);
+            }
+        };
+
         if (assignmentID !== 'No Assignment Selected') {
             fetchSubmissions();
+            fetchSubmissionCount();
         }
     }, [assignmentID]);
 
     const formatDate = (dateString) => {
         if (!dateString) return 'N/A';
         const date = new Date(dateString);
-        return date.toISOString().split('T')[0]; // YYYY-MM-DD format
+        return date.toISOString().split('T')[0];
     };
 
-    const handleBackClick = (className) => {
+    const handleBackClick = () => {
         navigate('/teachers');
     };
 
@@ -48,26 +54,24 @@ function Viewassign() {
         const updatedStudents = [...students];
         updatedStudents[index].marks = value;
         setStudents(updatedStudents);
-        setMarksUpdated(true); // Mark that the data is updated
+        setMarksUpdated(true);
     };
 
     const handleEnterClick = () => {
         if (marksUpdated) {
-            // Update marks on the backend
-            students.forEach((student, index) => {
+            students.forEach((student) => {
                 if (student.marks) {
                     axios.post(`http://localhost:8000/api/updateMarks`, {
                         assignmentID: assignmentID,
-                        studentId: student.studentID, // Ensure you have the student ID
-                        marks: student.marks
-                    }).then(response => {
+                        studentId: student.studentID,
+                        marks: student.marks,
+                    }).then(() => {
                         console.log('Marks updated for', student.studentID);
-                    }).catch(error => {
+                    }).catch((error) => {
                         console.error('Error updating marks:', error);
                     });
                 }
             });
-            // alert('Marks updated');
         } else {
             alert('No changes made');
         }
@@ -90,7 +94,7 @@ function Viewassign() {
                 <div id="similar" style={{ textAlign: 'center', marginBottom: '30px', fontWeight: 'bold' }}>
                     <span>Classroom: {selectedClass || 'None Selected'}</span>
                     <span style={{ margin: '0 20px' }}>Title: {title}</span>
-                    <span>Start Date: {formatDate(start_date)}</span>
+                    <span>Submissions: {submissionCount}</span>
                 </div>
                 <div className="table-container11">
                     <table className="assignment-table11">
@@ -107,13 +111,13 @@ function Viewassign() {
                                     <td>{student.studentID || 'N/A'}</td>
                                     <td>{formatDate(student.submissionDate) || 'N/A'}</td>
                                     <td>
-                                        <input 
-                                            type="number" 
-                                            value={student.marks} 
-                                            max={10} 
-                                            min={0} 
+                                        <input
+                                            type="number"
+                                            value={student.marks}
+                                            max={10}
+                                            min={0}
                                             placeholder="0-10"
-                                            onChange={(e) => handleMarksChange(index, e.target.value)} 
+                                            onChange={(e) => handleMarksChange(index, e.target.value)}
                                         />
                                     </td>
                                 </tr>
@@ -123,11 +127,13 @@ function Viewassign() {
                 </div>
                 <div id="enter11">
                     <button className="toggle-button11" onClick={handleEnterClick} style={{ color: '#6BC5D2', fontSize: '20px' }}>
-                     ENTER</button>
+                        ENTER
+                    </button>
                 </div>
                 <div id="back11">
                     <button className="toggle-button11" onClick={handleBackClick} style={{ color: '#6BC5D2', fontSize: '20px' }}>
-                     BACK</button>
+                        BACK
+                    </button>
                 </div>
             </div>
         </div>

@@ -573,8 +573,8 @@ app.get('/api/class-details/:classID', (req, res) => {
 
 app.post('/api/submit-assignment', verifyToken, (req, res) => {
     const { userId } = req;
-    const { assignment_ID, class_ID } = req.body; // Get assignment_ID and class_ID from body
-    const submissionDate = new Date().toISOString().split('T')[0]; // Current date in YYYY-MM-DD format
+    const { assignment_ID, class_ID } = req.body; 
+    const submissionDate = new Date().toISOString().split('T')[0]; 
 
     if (!userId || !assignment_ID || !class_ID) {
         return res.status(400).json({ message: 'Student ID, Assignment ID, and Class ID are required' });
@@ -598,6 +598,28 @@ app.post('/api/submit-assignment', verifyToken, (req, res) => {
     });
 });
 
+app.get('/api/submissions/count/:assignmentID', (req, res) => {
+    const assignmentID = req.params.assignmentID;
+
+    if (!assignmentID) {
+        return res.status(400).json({ message: 'Assignment ID is required' });
+    }
+
+    const query = `
+        SELECT COUNT(*) AS submissionCount
+        FROM submissions
+        WHERE assignment_ID = ?;
+    `;
+
+    db.query(query, [assignmentID], (err, result) => {
+        if (err) {
+            console.error('Error fetching submission count:', err.message);
+            return res.status(500).json({ message: 'Error fetching submission count' });
+        }
+
+        res.status(200).json({ submissionCount: result[0].submissionCount });
+    });
+});
 
 // Error handling middleware
 app.use((err, req, res, next) => {
