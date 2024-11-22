@@ -40,7 +40,7 @@
 {
     width: 230px;
     height: 350px;
-    position: absolute;
+    position: fixed;
     background-color: black;
     left: 1175px;
     top: 90px;

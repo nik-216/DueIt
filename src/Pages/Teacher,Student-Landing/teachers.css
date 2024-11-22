@@ -102,15 +102,15 @@
 {
     font-family: Marcellus;
     width: 230px;
-    font-size: 30px;
+    font-size: 20px;
     color: #6BC5D2;
-    padding: 4px 20px;
+    padding: 10px 20px;
 }
 #name-box6
 {
     width: 230px;
     height: 350px;
-    position: absolute;
+    position: fixed;
     background-color: black;
     left: 1200px;
     top: 250px;

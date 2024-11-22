@@ -80,7 +80,7 @@ INSERT INTO courses values
     ('UE22EC252A', 'Computer Aided Digital Design', 'ECE', 3, '2024-10-21', '2024-12-11' ,'2024-12-23'),
     ('UE22EC241A', 'Mathematics For Electronics Engineers', 'ECE', 3, '2024-10-22', '2024-12-12' ,'2024-12-25'),
     ('UE22EC242A', 'Network Analysis and Synthesis', 'ECE', 3, '2024-10-23', '2024-12-13' ,'2024-12-27'),
-    ('UE22EC243A', 'Signals and Systems', 'ECE', 3, '2024-10-24', '2024-12-14' ,'2024-12-29')
+    ('UE22EC243A', 'Signals and Systems', 'ECE', 3, '2024-10-24', '2024-12-14' ,'2024-12-29');
 
 INSERT INTO students (student_ID, name, semester, department, password) VALUES
     ('PES1UG22CS111', 'Alice Johnson', 3, 'CSE', '$argon2id$v=19$m=65536,t=3,p=4$ZeYLsUGRdx1dh1Z7JYMX+w$ifeRkF7icxXzZ9sXznMLawAyU6QsqspxWpuyYG5jsD4'),

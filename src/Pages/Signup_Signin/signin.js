@@ -44,7 +44,7 @@ function Signin() {
     return (
         <div id='bg1'>
             <div id="DUEIT">
-                <img src="/logo.png" alt="pic" />
+                <img src="/logo.png" alt="pic" style={{ width: '200px', height: 'auto' }} />
             </div>
             <div id='bg2'>
                 <div id='signin'>SIGN IN</div>
