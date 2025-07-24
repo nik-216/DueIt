@@ -30,7 +30,7 @@ function Signup() {
     }
 
     try {
-        const response = await axios.post('http://localhost:8000/api/signup', {
+        const response = await axios.post('http://localhost:8000/api/auth/signup', {
             id,
             password,
             role: role === 1 ? 'Teacher' : 'Student',

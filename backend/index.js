@@ -617,31 +617,6 @@ app.get('/api/submissions/count/:assignmentID', (req, res) => {
     });
 });
 
-app.get('/api/submissions/count/:assignmentID', (req, res) => {
-    const assignmentID = req.params.assignmentID;
-
-    if (!assignmentID) {
-        return res.status(400).json({ message: 'Assignment ID is required' });
-    }
-
-    const query = `
-        SELECT COUNT(*) AS submissionCount
-        FROM submissions
-        WHERE assignment_ID = ?;
-    `;
-
-    db.query(query, [assignmentID], (err, result) => {
-        if (err) {
-            console.error('Error fetching submission count:', err.message);
-            return res.status(500).json({ message: 'Error fetching submission count' });
-        }
-
-        res.status(200).json({ submissionCount: result[0].submissionCount });
-    });
-});
-
-
-
 // Error handling middleware
 app.use((err, req, res, next) => {
     console.error(err.stack);

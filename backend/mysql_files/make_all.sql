@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS student_class(
     class_ID varchar(13),
     FOREIGN KEY (student_ID) REFERENCES students(student_ID),
     FOREIGN KEY (class_ID) REFERENCES classes(class_ID)
-)
+);
 
 -- CREATION DONE YAY!!
 

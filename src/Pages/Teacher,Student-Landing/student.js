@@ -27,7 +27,7 @@ function Student() {
             }
 
             try {
-                const response = await axios.get('http://localhost:8000/api/home_student', {
+                const response = await axios.get('http://localhost:8000/api/student/home_student', {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -51,7 +51,7 @@ function Student() {
                 const token = localStorage.getItem('token');
 
                 try {
-                    const response = await axios.get(`http://localhost:8000/api/class-details/${selectedClass}`,{} ,{
+                    const response = await axios.get(`http://localhost:8000/api/student/class-details/${selectedClass}`,{} ,{
                         headers: {
                             Authorization: `Bearer ${token}`,
                         },
@@ -77,7 +77,7 @@ function Student() {
         const submissionData = { assignment_ID, class_ID };
     
         try {
-            const response = await axios.post('http://localhost:8000/api/submit-assignment', submissionData, {
+            const response = await axios.post('http://localhost:8000/api/student/submit-assignment', submissionData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

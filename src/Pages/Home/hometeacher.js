@@ -20,7 +20,7 @@ function Hometeacher() {
     
             try {
                 console.log("Sending token:", `Bearer ${token}`); // Log the token being sent
-                const response = await axios.get('http://localhost:8000/api/home_teacher', {
+                const response = await axios.get('http://localhost:8000/api/teacher/home_teacher', {
                     headers: {
                         Authorization: `Bearer ${token}`, // Attach token in Authorization header
                     },

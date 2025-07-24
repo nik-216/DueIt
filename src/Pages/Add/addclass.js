@@ -32,7 +32,7 @@ function Addclass() {
 
         const token = localStorage.getItem('token'); // Retrieve the JWT token from local storage
 
-        axios.post('http://localhost:8000/api/addclass', classData, {
+        axios.post('http://localhost:8000/api/teacher/addclass', classData, {
             headers: {
                 Authorization: `Bearer ${token}`, // Add the token to the Authorization header
             },

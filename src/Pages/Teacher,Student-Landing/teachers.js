@@ -20,7 +20,7 @@ function Teachers() {
     // Fetch all class information
     const fetchAllClasses = async (token) => {
         try {
-            const response = await axios.get('http://localhost:8000/api/teacher-classes', {
+            const response = await axios.get('http://localhost:8000/api/teacher/teacher-classes', {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setAllClasses(response.data);

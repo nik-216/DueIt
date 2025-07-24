@@ -33,7 +33,7 @@ function Addassign() {
         }
 
         try {
-            const response = await fetch('http://localhost:8000/api/addassignment', {
+            const response = await fetch('http://localhost:8000/api/assignment/addassignment', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

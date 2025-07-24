@@ -17,7 +17,7 @@ function Viewassign() {
         // Fetch submissions for the assignment
         const fetchSubmissions = async () => {
             try {
-                const response = await axios.get(`http://localhost:8000/api/submissions/${assignmentID}`);
+                const response = await axios.get(`http://localhost:8000/api/assignment/submissions/${assignmentID}`);
                 setStudents(response.data.submissions);
             } catch (error) {
                 console.error('Error fetching submissions:', error);
@@ -27,7 +27,7 @@ function Viewassign() {
         // Fetch the submission count for the assignment
         const fetchSubmissionCount = async () => {
             try {
-                const response = await axios.get(`http://localhost:8000/api/submissions/count/${assignmentID}`);
+                const response = await axios.get(`http://localhost:8000/api/assignment/submissionCount/${assignmentID}`);
                 setSubmissionCount(response.data.submissionCount);
             } catch (error) {
                 console.error('Error fetching submission count:', error);
@@ -61,7 +61,7 @@ function Viewassign() {
         if (marksUpdated) {
             students.forEach((student) => {
                 if (student.marks) {
-                    axios.post(`http://localhost:8000/api/updateMarks`, {
+                    axios.post(`http://localhost:8000/api/assignment/updateMarks`, {
                         assignmentID: assignmentID,
                         studentId: student.studentID,
                         marks: student.marks,

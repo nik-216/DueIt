@@ -19,7 +19,7 @@ function Homestudent() {
             }
 
             try {
-                const response = await axios.get('http://localhost:8000/api/home_student', {
+                const response = await axios.get('http://localhost:8000/api/student/home_student', {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },

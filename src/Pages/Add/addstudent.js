@@ -25,7 +25,7 @@ function Addstudent() {
 
     const fetchStudentsInClass = async () => {
         try {
-            const response = await axios.get(`http://localhost:8000/api/fetchstudents/${class_ID}`);
+            const response = await axios.get(`http://localhost:8000/api/teacher/fetchstudents/${class_ID}`);
             setStudents(response.data.students || []);
             setNumStudents(response.data.num_st || 0); // Set number of students
         } catch (error) {
@@ -45,7 +45,7 @@ function Addstudent() {
         }
 
         try {
-            const response = await axios.post('http://localhost:8000/api/addstudent', {
+            const response = await axios.post('http://localhost:8000/api/teacher/addstudent', {
                 classId: class_ID,
                 studentId: id9,
             });
@@ -65,7 +65,7 @@ function Addstudent() {
         }
 
         try {
-            const response = await axios.post('http://localhost:8000/api/removestudent', {
+            const response = await axios.post('http://localhost:8000/api/teacher/removestudent', {
                 classId: class_ID,
                 studentId: id9,
             });
